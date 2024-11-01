@@ -1,5 +1,8 @@
 # Proyecto: PRM Chatbot en Telegram
 
+## Nombre del Proyecto
+MemoMate
+
 ## Descripción General
 Este proyecto tiene como objetivo desarrollar un producto tecnológico que ayude al usuario a mejorar sus relaciones personales mediante el uso de un chatbot en Telegram. Inspirado en los sistemas PRM (Personal Resource Manager), el bot permite al usuario gestionar información sobre sus contactos, recordar eventos importantes y establecer recordatorios para mejorar la comunicación y relación con personas clave en su vida.
 
