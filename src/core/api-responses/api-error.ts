@@ -1,9 +1,8 @@
-interface ApiErrorProps {
-  status?: number;
-}
+import { CustomError } from "../errors/custom-error";
 
-export const apiError = ({ status = 500, ...error }: any & ApiErrorProps) => {
-  return new Response(JSON.stringify(error), {
-    status,
+export const apiError = (error: CustomError) => {
+  const errorJson = error.toJSON();
+  return new Response(JSON.stringify(errorJson), {
+    status: error.statusCode,
   });
 };

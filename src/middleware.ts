@@ -1,1 +1,1 @@
-export default async function middleware() {}
+export function middleware() {}

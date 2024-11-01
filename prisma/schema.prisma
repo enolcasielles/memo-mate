@@ -19,6 +19,7 @@ model User {
   contacts    Contact[]
   reminders   Reminder[]
   messageLogs MessageLog[]
+  sessions    Session[]
 
   @@map("users")
 }
@@ -83,4 +84,17 @@ model MessageLog {
   contact Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
 
   @@map("message_logs")
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String   @map("user_id")
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relaciones
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
 }
