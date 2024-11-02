@@ -1,16 +1,25 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { NavMobile, NavDesktop } from "@/core/components/layout/side-nav";
 
-export default function PrivateLayout({
+export default function DashboardLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  const userId = cookies().get("userId");
+}) {
+  return (
+    <div className="flex min-h-screen">
+      {/* Sidebar para desktop */}
+      <NavDesktop />
 
-  if (!userId) {
-    redirect("/");
-  }
+      {/* Contenedor principal */}
+      <div className="flex-1 flex flex-col">
+        {/* Header móvil */}
+        <header className="lg:hidden flex items-center justify-between border-b p-4">
+          <NavMobile />
+        </header>
 
-  return children;
+        {/* Contenido principal */}
+        <main className="flex-1 p-6">{children}</main>
+      </div>
+    </div>
+  );
 }
