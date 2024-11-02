@@ -8,14 +8,13 @@ export async function LoginRoute(request: Request) {
   const { searchParams } = new URL(request.url);
   const token = searchParams.get("token");
 
-  if (!token) {
-    throw new CustomError({
-      message: "Token no proporcionado",
-      statusCode: 400,
-    });
-  }
-
   try {
+    if (!token) {
+      throw new CustomError({
+        message: "Token no proporcionado",
+        statusCode: 400,
+      });
+    }
     const session = await prisma.session.findFirst({
       where: {
         token,

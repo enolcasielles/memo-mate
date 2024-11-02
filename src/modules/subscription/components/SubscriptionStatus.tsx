@@ -12,10 +12,10 @@ import {
 import { useSubscription } from "../contexts/SubscriptionContext";
 
 export function SubscriptionStatus() {
-  const { subscription, handleManageSubscription, handleSubscribe } =
+  const { subscription, manageSubscription, activateSubscription } =
     useSubscription();
 
-  if (!subscription || subscription.status === "none") {
+  if (!subscription) {
     return (
       <Card>
         <CardHeader>
@@ -25,13 +25,29 @@ export function SubscriptionStatus() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Button onClick={handleSubscribe}>Suscribirse ahora</Button>
+          <Button onClick={activateSubscription}>Suscribirse ahora</Button>
         </CardContent>
       </Card>
     );
   }
 
   const isActive = subscription.status === "active";
+  const willCancelAtPeriodEnd = subscription.cancelAtPeriodEnd;
+
+  let message = "";
+  if (isActive && willCancelAtPeriodEnd) {
+    message = `Tu suscripción se cancelará el ${format(
+      subscription.currentPeriodEnd,
+      "dd/MM/yyyy",
+    )}`;
+  } else if (isActive) {
+    message = `Tu suscripción se renovará el ${format(
+      subscription.currentPeriodEnd,
+      "dd/MM/yyyy",
+    )}`;
+  } else {
+    message = "Tu suscripción ha expirado";
+  }
 
   return (
     <Card>
@@ -39,18 +55,11 @@ export function SubscriptionStatus() {
         <CardTitle>
           {isActive ? "Suscripción Activa" : "Suscripción Expirada"}
         </CardTitle>
-        <CardDescription>
-          {isActive
-            ? `Tu suscripción se renovará el ${format(
-                subscription.currentPeriodEnd,
-                "dd/MM/yyyy",
-              )}`
-            : "Tu suscripción ha expirada"}
-        </CardDescription>
+        <CardDescription>{message}</CardDescription>
       </CardHeader>
       <CardContent>
         <Button
-          onClick={handleManageSubscription}
+          onClick={isActive ? manageSubscription : activateSubscription}
           variant={isActive ? "outline" : "default"}
         >
           {isActive ? "Gestionar Suscripción" : "Renovar Suscripción"}

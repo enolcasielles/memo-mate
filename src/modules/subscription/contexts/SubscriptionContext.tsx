@@ -3,15 +3,13 @@
 import { PropsWithChildren, createContext, useContext } from "react";
 import { useError } from "@/core/components/hooks/use-error";
 import { Subscription } from "../types/subscription.types";
-import {
-  createCheckoutSessionAction,
-  createPortalSessionAction,
-} from "../actions/subscription.actions";
+import { createPortalSessionAction } from "../actions/create-portal-session.action";
+import { createCheckoutSessionAction } from "../actions/create-checkout-session.action";
 
 interface IContext {
   subscription: Subscription | null;
-  handleManageSubscription: () => Promise<void>;
-  handleSubscribe: () => Promise<void>;
+  manageSubscription: () => Promise<void>;
+  activateSubscription: () => Promise<void>;
 }
 
 const Context = createContext<IContext>(null);
@@ -28,13 +26,13 @@ export default function SubscriptionProvider({
 }: PropsWithChildren<Props>) {
   const { showError } = useError();
 
-  const handleManageSubscription = async () => {
+  const manageSubscription = async () => {
     const [error, result] = await createPortalSessionAction();
     if (error) showError(error);
     else window.location.href = result.url;
   };
 
-  const handleSubscribe = async () => {
+  const activateSubscription = async () => {
     const [error, result] = await createCheckoutSessionAction();
     if (error) showError(error);
     else window.location.href = result.url;
@@ -42,8 +40,8 @@ export default function SubscriptionProvider({
 
   const value: IContext = {
     subscription: initialSubscription,
-    handleManageSubscription,
-    handleSubscribe,
+    manageSubscription,
+    activateSubscription,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

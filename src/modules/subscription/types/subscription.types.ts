@@ -1,11 +1,9 @@
-export type SubscriptionStatus = "active" | "expired" | "none";
-
+import Stripe from "stripe";
 export interface Subscription {
   id: string;
-  status: SubscriptionStatus;
+  status: Stripe.Subscription.Status;
   currentPeriodEnd: Date;
   cancelAtPeriodEnd: boolean;
-  priceId: string;
 }
 
 export interface SubscriptionPrice {
