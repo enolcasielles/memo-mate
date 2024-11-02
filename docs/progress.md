@@ -27,7 +27,13 @@ El siguiente paso ha sido definir la estructura del dashboard. Para ellos hemos 
 ## Suscripción
 Hemos implementado un sistema completo de suscripciones utilizando Stripe como proveedor de pagos. El módulo permite a los usuarios gestionar sus suscripciones, activar nuevas suscripciones y ver el estado actual de las mismas.
 
-## Importación contactos
+## Contactos
+El siguiente paso ha sido implementar la gestión de contactos. De nuevo hemos utilizado Cursor Composer para que nos definiera una estructura inicial de todos los ficheros y funcionalidades. Sobre ella hemos ido corrigiendo y ajustando cosas para que cumpliera con los requerimientos:
+- Ver contactos
+- Buscar contactos
+- Crear contactos
+- Editar contactos
+- Eliminar contactos
 
 ## Api Route para webhook de telegram
 
