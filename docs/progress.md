@@ -22,8 +22,10 @@ El siguiente paso ha sido definir la home. Con V0 de dev hemos definido la inter
 https://v0.dev/chat/HH8HkahPa1o
 
 ## Estructura dashboard
+El siguiente paso ha sido definir la estructura del dashboard. Para ellos hemos usado Cursor Composer. Pasando como referencia los requerimientos de la web definidos en la documentación, le hemos pedido que crease la estructura del dashboard.
 
 ## Suscripción
+Hemos implementado un sistema completo de suscripciones utilizando Stripe como proveedor de pagos. El módulo permite a los usuarios gestionar sus suscripciones, activar nuevas suscripciones y ver el estado actual de las mismas.
 
 ## Importación contactos
 
