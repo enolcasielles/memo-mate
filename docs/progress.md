@@ -35,6 +35,8 @@ El siguiente paso ha sido implementar la gestión de contactos. De nuevo hemos u
 - Editar contactos
 - Eliminar contactos
 
+Para la importación de contactos hemos utilizado la librería `csvtojson` que nos permite convertir un fichero CSV a un array de objetos JSON. De nuevo nos hemos apoyado en Cursor Composer para crear la funcionalidad de importación de contactos. Tenemos una captura del prompt utilizado.
+
 ## Api Route para webhook de telegram
 
 ## Creación de asistente de OpenAI

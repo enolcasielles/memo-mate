@@ -46,6 +46,7 @@ export async function getContactsAction(
     const contacts = await prisma.contact.findMany({ where });
     return [null, contacts];
   } catch (error) {
+    console.error(error);
     if (error instanceof CustomError) return [buildCustomError(error), null];
     return [{ message: "Error al obtener los contactos" }, null];
   }

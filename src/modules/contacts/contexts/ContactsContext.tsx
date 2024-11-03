@@ -19,6 +19,7 @@ import { getContactsAction } from "../actions/get-contacts.action";
 import { createContactAction } from "../actions/create-contact.action";
 import { updateContactAction } from "../actions/update-contact.action";
 import { deleteContactAction } from "../actions/delete-contact.action";
+import { useUserContext } from "@/core/contexts/UserContext";
 
 interface IContext {
   contacts: Contact[];
@@ -36,16 +37,15 @@ const Context = createContext<IContext>(null);
 export const useContacts = () => useContext(Context);
 
 interface Props {
-  userId: string;
   initialContacts: Contact[];
 }
 
 export default function ContactsProvider({
-  userId,
   initialContacts,
   children,
 }: PropsWithChildren<Props>) {
   const { showError } = useError();
+  const { userId } = useUserContext();
   const [contacts, setContacts] = useState<Contact[]>(initialContacts);
   const [filters, setFilters] = useState<ContactFilters>({});
   const [isLoading, setIsLoading] = useState(false);
