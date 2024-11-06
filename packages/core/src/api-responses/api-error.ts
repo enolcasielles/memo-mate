@@ -1,4 +1,4 @@
-import { CustomError } from "@memomate/core";
+import { CustomError } from "../errors";
 
 export const apiError = (error: CustomError) => {
   const errorJson = error.toJSON();

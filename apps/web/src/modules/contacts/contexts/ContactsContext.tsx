@@ -8,7 +8,6 @@ import {
   useState,
 } from "react";
 import { useError } from "@/core/components/hooks/use-error";
-import { ICustomError } from "@/core/errors/custom-error";
 import {
   Contact,
   ContactFilters,
@@ -20,6 +19,7 @@ import { createContactAction } from "../actions/create-contact.action";
 import { updateContactAction } from "../actions/update-contact.action";
 import { deleteContactAction } from "../actions/delete-contact.action";
 import { useUserContext } from "@/core/contexts/UserContext";
+import { ICustomError } from "@memomate/core";
 
 interface IContext {
   contacts: Contact[];

@@ -1,4 +1,4 @@
-import { ICustomError } from "@/core/errors/custom-error";
+import { ICustomError } from "@memomate/core";
 import { useToast } from "./use-toast";
 
 export const useError = () => {

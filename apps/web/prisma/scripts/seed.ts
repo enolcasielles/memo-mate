@@ -8,7 +8,7 @@ async function main() {
     data: {
       telegramUserId: 123456789,
       hasCompletedSetup: true,
-      openaiAssistantId: "asst_test123",
+      openaiThreadId: "thread_test123",
       stripeSubscriptionId: null,
     },
   });

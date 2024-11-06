@@ -2,8 +2,8 @@
 
 import { PropsWithChildren, createContext, useContext, useState } from "react";
 import { useError } from "@/core/components/hooks/use-error";
-import { ICustomError } from "@/core/errors/custom-error";
 import { exampleAction, ExampleResponse } from "../actions/example.action";
+import { ICustomError } from "@memomate/core";
 
 interface IContext {
   result: ExampleResponse;
