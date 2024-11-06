@@ -3,7 +3,7 @@ import { Subscription } from "../types/subscription.types";
 import { ActionResponse } from "@memomate/core";
 import { buildCustomError, CustomError } from "@memomate/core";
 import { getUserId } from "@/core/utils/get-user-id";
-import { stripe } from "@memomate/core"
+import { stripe } from "@/core/lib/stripe";
 
 export async function getSubscription(): Promise<ActionResponse<Subscription>> {
   try {

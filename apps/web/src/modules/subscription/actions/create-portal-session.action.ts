@@ -2,9 +2,9 @@
 
 import { buildCustomError, CustomError } from "@memomate/core";
 import prisma from "@memomate/database";
-import { stripe } from "@memomate/core"
 import { ActionResponse } from "@memomate/core";
 import { getUserId } from "@/core/utils/get-user-id";
+import { stripe } from "@/core/lib/stripe";
 
 export interface CreatePortalSessionResponse {
   url: string;

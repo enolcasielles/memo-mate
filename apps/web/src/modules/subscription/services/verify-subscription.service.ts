@@ -1,6 +1,6 @@
 import { buildCustomError, CustomError } from "@memomate/core";
 import prisma from "@memomate/database";
-import { stripe } from "@memomate/core"
+import { stripe } from "@/core/lib/stripe";
 import { ActionResponse } from "@memomate/core";
 import { getUserId } from "@/core/utils/get-user-id";
 

@@ -1,7 +1,7 @@
 import { Thread as OpenAiThread } from "openai/resources/beta/threads/threads";
 import { Run } from "openai/resources/beta/threads/runs/runs";
 import { Agent } from "./Agent";
-import { openaiClient } from "@memomate/core";
+import { openaiClient } from ".";
 
 type ThreadParams = {
   id: string;
@@ -22,10 +22,9 @@ export class Thread {
     this.agent = agent;
   }
 
-  async create() {
-    this.thread = await openaiClient.beta.threads.create();
-    this.id = this.thread.id;
-    return this.id;
+  static async create() {
+    const thread = await openaiClient.beta.threads.create();
+    return thread.id;
   }
 
   async init() {

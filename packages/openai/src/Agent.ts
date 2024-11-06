@@ -5,7 +5,7 @@ import {
   AssistantUpdateParams,
 } from "openai/resources/beta/assistants";
 import { Tool } from "./Tool";
-import { openaiClient } from "@memomate/core";
+import { openaiClient } from ".";
 
 interface Props {
   id: string;

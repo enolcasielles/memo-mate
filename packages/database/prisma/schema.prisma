@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DB_URL")
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -12,7 +12,7 @@ model User {
   stripeSubscriptionId String?       @map("stripe_subscription_id")
   telegramUserId       BigInt        @unique @map("telegram_user_id")
   hasCompletedSetup    Boolean       @default(false) @map("has_completed_setup")
-  openaiThreadId    String           @map("openai_assistant_id")
+  openaiThreadId    String           @map("openai_thread_id")
   createdAt            DateTime      @default(now()) @map("created_at")
 
   // Relaciones

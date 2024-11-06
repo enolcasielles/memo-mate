@@ -6,14 +6,12 @@
     "dev": "next dev -p 10002",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "prisma generate"
+    "lint": "next lint"
   },
   "dependencies": {
     "@memomate/core": "workspace:^",
     "@memomate/database": "workspace:^",
     "@memomate/openai": "workspace:^",
-    "@prisma/client": "^5.17.0",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.2",
@@ -27,6 +25,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.52.2",
+    "stripe": "^17.3.1",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "use-debounce": "^10.0.4",
@@ -37,7 +36,6 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "postcss": "^8",
-    "prisma": "^5.17.0",
     "tailwindcss": "^3.4.1"
   }
 }
