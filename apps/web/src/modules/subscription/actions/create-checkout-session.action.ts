@@ -1,9 +1,9 @@
 "use server";
 
-import { CustomError, buildCustomError } from "@/core/errors/custom-error";
-import { ActionResponse } from "@/core/responses/action.response";
+import { buildCustomError, CustomError } from "@memomate/core";
+import { ActionResponse } from "@memomate/core";
 import { getUserId } from "@/core/utils/get-user-id";
-import { stripe } from "@/core/lib/stripe";
+import { stripe } from "@memomate/core"
 
 export interface CreateCheckoutSessionResponse {
   url: string;

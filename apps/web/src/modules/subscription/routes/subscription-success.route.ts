@@ -1,5 +1,5 @@
-import { apiError } from "@/core/api-responses/api-error";
-import { CustomError } from "@/core/errors/custom-error";
+import { apiError } from "@memomate/core";
+import { CustomError } from "@memomate/core";
 import { verifySubscription } from "@/modules/subscription/services/verify-subscription.service";
 import { NextResponse } from "next/server";
 

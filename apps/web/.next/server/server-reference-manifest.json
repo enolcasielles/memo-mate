@@ -1,5 +1,22 @@
 {
-  "node": {},
+  "node": {
+    "97310fb568770017162ae81e3afdf93c6b900803": {
+      "workers": {
+        "app/(private)/dashboard/subscription/page": "(action-browser)/../../node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1/node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fenolcasielles%2FDesktop%2FMemoMate%2Fmemo-mate-web%2Fapps%2Fweb%2Fsrc%2Fmodules%2Fsubscription%2Factions%2Fcreate-portal-session.action.ts%22%2C%5B%22createPortalSessionAction%22%5D%5D%2C%5B%22%2FUsers%2Fenolcasielles%2FDesktop%2FMemoMate%2Fmemo-mate-web%2Fapps%2Fweb%2Fsrc%2Fmodules%2Fsubscription%2Factions%2Fcreate-checkout-session.action.ts%22%2C%5B%22createCheckoutSessionAction%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/(private)/dashboard/subscription/page": "action-browser"
+      }
+    },
+    "835b802adab74c268b421bfa3d9d7ea29e5dde15": {
+      "workers": {
+        "app/(private)/dashboard/subscription/page": "(action-browser)/../../node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1/node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fenolcasielles%2FDesktop%2FMemoMate%2Fmemo-mate-web%2Fapps%2Fweb%2Fsrc%2Fmodules%2Fsubscription%2Factions%2Fcreate-portal-session.action.ts%22%2C%5B%22createPortalSessionAction%22%5D%5D%2C%5B%22%2FUsers%2Fenolcasielles%2FDesktop%2FMemoMate%2Fmemo-mate-web%2Fapps%2Fweb%2Fsrc%2Fmodules%2Fsubscription%2Factions%2Fcreate-checkout-session.action.ts%22%2C%5B%22createCheckoutSessionAction%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/(private)/dashboard/subscription/page": "action-browser"
+      }
+    }
+  },
   "edge": {},
-  "encryptionKey": "IeYjR47NH+wSfFHBKBZfGoHmQdTPGU5tivYDrUf14Vw="
+  "encryptionKey": "Vdhk4q5xBVM0XcRzBacelupimbkeFsgLrcuK9ucbK5M="
 }

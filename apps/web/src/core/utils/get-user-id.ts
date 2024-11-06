@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { CustomError } from "../errors/custom-error";
+import { CustomError } from "@memomate/core";
 
 export async function getUserId(): Promise<string> {
   const userId = cookies().get("userId")?.value;

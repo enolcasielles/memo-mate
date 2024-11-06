@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
-import { prisma } from "@/core/lib/prisma";
 import { NextResponse } from "next/server";
-import { apiError } from "@/core/api-responses/api-error";
-import { CustomError } from "@/core/errors/custom-error";
+import { CustomError } from "@memomate/core";
+import { apiError } from "@memomate/core";
+import prisma from "@memomate/database";
 
 export async function LoginRoute(request: Request) {
   const { searchParams } = new URL(request.url);

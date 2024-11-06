@@ -1,8 +1,8 @@
 "use server";
 
-import { buildCustomError, CustomError } from "@/core/errors/custom-error";
-import { prisma } from "@/core/lib/prisma";
-import { ActionResponse } from "@/core/responses/action.response";
+import { buildCustomError, CustomError } from "@memomate/core";
+import prisma from "@memomate/database";
+import { ActionResponse } from "@memomate/core";
 
 export async function deleteContactAction(
   userId: string,

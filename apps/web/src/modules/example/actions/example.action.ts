@@ -1,5 +1,5 @@
-import { buildCustomError, CustomError } from "@/core/errors/custom-error";
-import { ActionResponse } from "@/core/responses/action.response";
+import { buildCustomError, CustomError } from "@memomate/core";
+import { ActionResponse } from "@memomate/core";
 
 export interface ExampleRequest {
   param: string;

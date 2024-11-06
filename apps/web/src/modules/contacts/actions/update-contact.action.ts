@@ -1,9 +1,9 @@
 "use server";
 
-import { buildCustomError, CustomError } from "@/core/errors/custom-error";
-import { ActionResponse } from "@/core/responses/action.response";
+import { buildCustomError, CustomError } from "@memomate/core";
+import { ActionResponse } from "@memomate/core";
 import { Contact, UpdateContactDTO } from "../types/contact.type";
-import { prisma } from "@/core/lib/prisma";
+import prisma from "@memomate/database";
 import { mapContactEntityToContact } from "../mappers/contact.mapper";
 
 export async function updateContactAction(

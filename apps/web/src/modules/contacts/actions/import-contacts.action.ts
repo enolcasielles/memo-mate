@@ -1,8 +1,8 @@
 "use server";
 
-import { buildCustomError, CustomError } from "@/core/errors/custom-error";
-import { ActionResponse } from "@/core/responses/action.response";
-import { prisma } from "@/core/lib/prisma";
+import { buildCustomError, CustomError } from "@memomate/core";
+import { ActionResponse } from "@memomate/core";
+import prisma from "@memomate/database";
 import csv from "csvtojson";
 
 interface ImportResult {

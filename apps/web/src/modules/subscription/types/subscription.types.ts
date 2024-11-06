@@ -1,7 +1,8 @@
-import Stripe from "stripe";
+import { StripeSubscriptionStatus } from "@memomate/core";
+
 export interface Subscription {
   id: string;
-  status: Stripe.Subscription.Status;
+  status: StripeSubscriptionStatus
   currentPeriodEnd: Date;
   cancelAtPeriodEnd: boolean;
 }

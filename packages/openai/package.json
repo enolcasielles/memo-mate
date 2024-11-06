@@ -1,0 +1,24 @@
+{
+  "name": "@memomate/openai",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "dev": "nodemon --config ../../configs/library/nodemon.json",
+    "build:esm": "tsc -p ./tsconfig.esm.json",
+    "build:cjs": "tsc -p ./tsconfig.cjs.json",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "rimraf": "^5.0.7"
+  },
+  "dependencies": {
+    "@memomate/core": "workspace:^",
+    "openai": "^4.71.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@memomate/database",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "scripts": {
+		"clean": "rimraf dist",
+    "dev": "nodemon --config ../../configs/library/nodemon.json",
+    "build:esm": "tsc -p ./tsconfig.esm.json",
+    "build:cjs": "tsc -p ./tsconfig.cjs.json",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs",
+    "seed": "ts-node --project prisma/tsconfig.json prisma/scripts/seed.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "5.10.2",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "prisma": "^5.10.2",
+		"rimraf": "^5.0.7"
+  }
+}

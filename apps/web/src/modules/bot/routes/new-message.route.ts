@@ -1,6 +1,6 @@
-import { apiError } from "@/core/api-responses/api-error";
-import { CustomError } from "@/core/errors/custom-error";
-import { prisma } from "@/core/lib/prisma";
+import { apiError } from "@memomate/core";
+import { CustomError } from "@memomate/core";
+import prisma from "@memomate/database";
 import { NextResponse } from "next/server";
 
 export async function BotNewMessage(req: Request) {
@@ -47,7 +47,8 @@ export async function BotNewMessage(req: Request) {
     }
 
     // Procesar el mensaje con el asistente de OpenAI
-    const responseMessage = await processUserMessageWithOpenAI(text, user);
+    //const responseMessage = await processUserMessageWithOpenAI(text, user);
+    const responseMessage = "Hola, ¿cómo puedo ayudarte hoy?";
 
     // Enviar respuesta a Telegram
     await fetch(

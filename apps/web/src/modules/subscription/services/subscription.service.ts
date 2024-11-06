@@ -1,9 +1,9 @@
-import { prisma } from "@/core/lib/prisma";
+import prisma from "@memomate/database";
 import { Subscription } from "../types/subscription.types";
-import { ActionResponse } from "@/core/responses/action.response";
-import { buildCustomError, CustomError } from "@/core/errors/custom-error";
+import { ActionResponse } from "@memomate/core";
+import { buildCustomError, CustomError } from "@memomate/core";
 import { getUserId } from "@/core/utils/get-user-id";
-import { stripe } from "@/core/lib/stripe";
+import { stripe } from "@memomate/core"
 
 export async function getSubscription(): Promise<ActionResponse<Subscription>> {
   try {

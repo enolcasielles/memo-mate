@@ -1,9 +1,9 @@
 "use server";
 
-import { CustomError, buildCustomError } from "@/core/errors/custom-error";
-import { prisma } from "@/core/lib/prisma";
-import { stripe } from "@/core/lib/stripe";
-import { ActionResponse } from "@/core/responses/action.response";
+import { buildCustomError, CustomError } from "@memomate/core";
+import prisma from "@memomate/database";
+import { stripe } from "@memomate/core"
+import { ActionResponse } from "@memomate/core";
 import { getUserId } from "@/core/utils/get-user-id";
 
 export interface CreatePortalSessionResponse {
