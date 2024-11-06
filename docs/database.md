@@ -15,7 +15,7 @@ El modelo User almacena la información básica de los usuarios del sistema. Cad
 - `telegram_user_id`: ID único del usuario en Telegram, utilizado para la identificación en el sistema
 - `has_completed_setup`: Indica si el usuario ha completado la configuración inicial (booleano)
 - `stripe_subscription_id`: ID de la suscripción en Stripe (NULL si el usuario es básico)
-- `openai_assistant_id`: ID del asistente de OpenAI asociado al usuario
+- `openai_thread_id`: ID del asistente de OpenAI asociado al usuario
 - `created_at`: Marca de tiempo de la creación del usuario
 
 ```sql
@@ -24,7 +24,7 @@ CREATE TABLE User (
     telegram_user_id BIGINT UNIQUE NOT NULL,
     has_completed_setup BOOLEAN DEFAULT FALSE,
     stripe_subscription_id VARCHAR(255),
-    openai_assistant_id VARCHAR(255) NOT NULL,
+    openai_thread_id VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
 );
 ```

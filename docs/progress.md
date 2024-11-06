@@ -5,12 +5,17 @@ https://chatgpt.com/c/671f2223-3c3c-8007-9c6c-8efe399fddf5
 
 
 ## Crear el proyecto base
-Lo siguiente que hemos hecho es crear el proyecto base con el que poder trabajar. Dado que hemos acordado usar NextJS, podemos utilizar como base el proyecto `next-base` que tengo en mi Github.
+Lo siguiente que hemos hecho es crear el proyecto base con el que poder trabajar. Tal como se ha definido en la arquitecura, utilizaremos un monorepo con pnpm. Para ello vamos a seguir la misma configuración que tenemos en [este proyecto](https://github.com/enolcasielles/next-nest-clean-arquitecture) en mi Github. Para la parte de NestJS utilizaremos como base el proyecto `next-base` en mi Github:
 
 https://github.com/enolcasielles/next14-starter-project
 
 ## Base de datos
 Para la base de datos hemos acordado usar PostgreSQL y Prisma como ORM. El siguiente paso será crear el modelo de la base de datos y definir las relaciones entre las tablas. Para ellos hemos utilizado Cursor Composer. Referenciando a los documentos de docs le hemos pedido que cree el modelo de la base de datos y las relaciones entre las tablas. También hemos creado un archivo `seed.ts` para poder introducir datos de prueba en la base de datos.
+
+La impelementación de la base de datos la hemos hecho como un paquete independiente en el monorepo: `database`.
+
+## Core
+También hemos creado un paquete `core` en el monorepo, que contendrá todas las utilidades compartidas entre los diferentes proyectos o paquetes del monorepo.
 
 ## Autenticación
 El siguiente paso fue definir la autenticación. En la definición del proyecto habíamos acordado usar un simple mecanismo de autenticación basado en un token de sesión que expirará pasado un tiempo. Para ellos hemos creado una Api Route de Next /login, que recibirá como parámetro un token de sesión. Se comprobará si el token es válido y, si es así, hará un redirect a /dashboard. En caso contrario devolverá un error.
@@ -37,7 +42,8 @@ El siguiente paso ha sido implementar la gestión de contactos. De nuevo hemos u
 
 Para la importación de contactos hemos utilizado la librería `csvtojson` que nos permite convertir un fichero CSV a un array de objetos JSON. De nuevo nos hemos apoyado en Cursor Composer para crear la funcionalidad de importación de contactos. Tenemos una captura del prompt utilizado.
 
-## Api Route para webhook de telegram
+## Paquete OpenAI
+El siguiente paso ha sido crear el paquete `openai` en el monorepo. Este paquete contendrá toda la lógica relacionada con OpenAI, como las clases Agent, Thread, Tool. Lo que busca este paquete es abstraer toda la lógica de OpenAI para que sea más fácil su uso en el resto de paquetes del monorepo.
 
 ## Creación de asistente de OpenAI
 

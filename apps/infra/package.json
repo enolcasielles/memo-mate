@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "infra": "docker-compose -f docker-compose.yaml up"
+    "dev": "docker-compose -f docker-compose.yaml up"
   },
   "keywords": [],
   "author": "",
