@@ -1,7 +1,5 @@
-import { Agent } from "./Agent";
-
 type BaseRunProps = {
-  callerAgent: Agent;
+  metadata: Record<string, any>;
 };
 
 export type RunProps = BaseRunProps & Record<string, any>;

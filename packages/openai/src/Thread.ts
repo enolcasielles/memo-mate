@@ -3,23 +3,26 @@ import { Run } from "openai/resources/beta/threads/runs/runs";
 import { Agent } from "./Agent";
 import { openaiClient } from ".";
 
-type ThreadParams = {
+type ThreadParams<T extends Record<string, any>> = {
   id: string;
   agent: Agent;
+  metadata?: T;
 };
 
 const MAX_RETRIES = 3;
 
-export class Thread {
+export class Thread<T extends Record<string, any>> {
   id: string;
   agent: Agent;
+  metadata: T;
 
   thread: OpenAiThread;
   run: Run;
 
-  constructor({ id, agent }: ThreadParams) {
+  constructor({ id, agent, metadata = {} as T }: ThreadParams<T>) {
     this.id = id;
     this.agent = agent;
+    this.metadata = metadata;
   }
 
   static async create() {
@@ -99,7 +102,7 @@ export class Thread {
       const toolResult = tool
         ? await tool.run({
             ...JSON.parse(toolToExecute.function.arguments),
-            callerAgent: this.agent,
+            metadata: this.metadata,
           })
         : "ERROR: no existe ninguna herramienta con el nombre que has indicado. Inténtalo de nuevo con el nombre correcto. La lista de herramientas disponibles es la siguiente: " +
           this.agent.tools.map((t) => t.name).join(", ");

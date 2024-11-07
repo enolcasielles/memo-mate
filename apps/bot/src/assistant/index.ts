@@ -1,5 +1,7 @@
 import { Agent, Thread } from "@memomate/openai";
 import path from "path";
+import { ThreadMetadata } from "../types/thread-metadata";
+import { CreateContactTool } from "./tools/CreateContactTool";
 
 const agent = new Agent({
   id: process.env.OPENAI_ASSISTANT_ID,
@@ -7,7 +9,9 @@ const agent = new Agent({
   description: path.join(__dirname, "description.md"),
   instructions: path.join(__dirname, "instructions.md"),
   model: "gpt-4o-mini",
-  tools: [],
+  tools: [
+    new CreateContactTool()
+  ],
 });
 
 export class MemoMateAssistant {
@@ -35,11 +39,14 @@ export class MemoMateAssistant {
     }
   }
 
-  async sendMessage(threadId: string, message: string): Promise<string> {
+  async sendMessage(userId: string,threadId: string, message: string): Promise<string> {
     try {
-      const thread = new Thread({
+      const thread = new Thread<ThreadMetadata>({
         id: threadId,
         agent: this.agent,
+        metadata: {
+          userId: userId,
+        },
       });
       await thread.init();
       const response = await thread.send(message);

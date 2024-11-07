@@ -53,9 +53,11 @@ En este paquete implementamos la integración con OpenAI para la creación del a
 En este paquete también implementamos la lógica para crear un usuario en la base de datos y relacionarlos con el thread de OpenAI.
 
 
-## Función de crear el link de autenticación
+## Definición del asistente
+Lo siguiente que he hecho es definir el asistente de OpenAI. Para ello he creado un archivo `instructions.md` en el paquete `bot` que contendrá las instrucciones para el asistente. Para conseguir esto, he utilizado el chat de Cursor. Le he proporcinado como contexto el `project.md` y a partir de eso me ha creado el archivo con la definición del asistente.
 
-## Función de recuperar un contacto
+## Primera herramienta: Crear un contacto
+El siguiente paso ha sido crear la primera herramienta. Esta herramienta se encargará de crear un contacto en la base de datos. Para ello he creado una clase `CreateContactTool`, que define los parámetros necesarios para crear un contacto y la lógica para crearlo en la base de datos.
 
 ## Función de crear un contacto
 

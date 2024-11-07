@@ -23,7 +23,7 @@ export class MemoMateProcessor {
   
       const user = await this._getOrCreateUser(telegramUserId);
   
-      const response = await this.assistant.sendMessage(user.openaiThreadId, message);
+      const response = await this.assistant.sendMessage(user.id, user.openaiThreadId, message);
       ctx.reply(response);
     } catch (error) {
       console.error(error);
