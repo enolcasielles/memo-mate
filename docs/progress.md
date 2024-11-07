@@ -45,7 +45,13 @@ Para la importación de contactos hemos utilizado la librería `csvtojson` que n
 ## Paquete OpenAI
 El siguiente paso ha sido crear el paquete `openai` en el monorepo. Este paquete contendrá toda la lógica relacionada con OpenAI, como las clases Agent, Thread, Tool. Lo que busca este paquete es abstraer toda la lógica de OpenAI para que sea más fácil su uso en el resto de paquetes del monorepo.
 
-## Creación de asistente de OpenAI
+## App Bot para manejar la interacción con Telegram
+El siguiente paso ha sido crear la app `bot` en el monorepo. Esta app se encargará de manejar la interacción con Telegram. Para ello usaremos la librería `telegraf` que nos permite crear un bot de Telegram.
+
+En este paquete implementamos la integración con OpenAI para la creación del asistente. También creamos una clase Processor que se encargará de procesar los mensajes de Telegram y enviarlos a OpenAI para que sean procesados.
+
+En este paquete también implementamos la lógica para crear un usuario en la base de datos y relacionarlos con el thread de OpenAI.
+
 
 ## Función de crear el link de autenticación
 
