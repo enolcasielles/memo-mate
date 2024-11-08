@@ -1,6 +1,7 @@
 import prisma from "@memomate/database";
-import { RunProps, Tool } from "@memomate/openai";
+import { RunProps, Tool, Embeddings } from "@memomate/openai";
 import { ThreadMetadata } from "../../types/thread-metadata";
+import PineconeService from "../../pinecone";
 
 interface CreateContactRunProps extends RunProps {
   name: string;
@@ -41,9 +42,10 @@ export class CreateContactTool extends Tool {
 
   async run(parameters: CreateContactRunProps): Promise<string> {
     try {
-      console.log(parameters);
       const { metadata, name, relation, location } = parameters;
-      await prisma.contact.create({
+      
+      // Crear el contacto en la base de datos
+      const contact = await prisma.contact.create({
         data: {
           name,
           relation,
@@ -51,6 +53,21 @@ export class CreateContactTool extends Tool {
           userId: metadata.userId
         }
       });
+
+      // Generar el texto para el embedding
+      const contactText = `Nombre: ${name}${relation ? `, Relación: ${relation}` : ''}${location ? `, Ubicación: ${location}` : ''}`;
+      
+      // Generar embedding usando OpenAI
+      const embeddings = new Embeddings();
+      const embeddingValue = await embeddings.generateEmbedding(contactText);
+      
+      // Indexar en Pinecone
+      await PineconeService.getInstance().upsertContact(
+        metadata.userId,
+        contact.id,
+        embeddingValue
+      );
+
       return `He creado el contacto ${name} correctamente.`;
     } catch (e) {
       console.error(e);

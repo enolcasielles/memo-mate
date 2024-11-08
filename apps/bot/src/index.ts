@@ -3,11 +3,18 @@ import { MemoMateProcessor } from './processor'
 import { Telegraf } from 'telegraf';
 import { message } from 'telegraf/filters';
 import { MemoMateAssistant } from './assistant';
-
+import PineconeService from './pinecone';
 
 const run = async () => {
+  // Inicializar servicios
   const assistant = MemoMateAssistant.getInstance();
-  await assistant.init();
+  const pinecone = PineconeService.getInstance();
+  
+  await Promise.all([
+    assistant.init(),
+    pinecone.init()
+  ]);
+  
   const processor = new MemoMateProcessor(assistant);
   
   const bot = new Telegraf(process.env.BOT_TOKEN);
