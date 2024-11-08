@@ -59,6 +59,9 @@ Lo siguiente que he hecho es definir el asistente de OpenAI. Para ello he creado
 ## Primera herramienta: Crear un contacto
 El siguiente paso ha sido crear la primera herramienta. Esta herramienta se encargará de crear un contacto en la base de datos. Para ello he creado una clase `CreateContactTool`, que define los parámetros necesarios para crear un contacto y la lógica para crearlo en la base de datos.
 
+## Integración con Pinecone
+El siguiente paso ha sido la integración de Pinecone, para la indexación y búsqueda de contactos. Para ellos hemos creado un nuevo módulo en el paquete `bot` llamado `pinecone`. Este módulo se encargará de la inicialización e interacción con Pinecone. Además, hemos creado una clase `Embeddings` en el paquete `openai` que se encargará de la generación de embeddings.
+
 ## Función de crear un contacto
 
 ## Función de agregar un evento a un contacto
