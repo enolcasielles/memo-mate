@@ -2,6 +2,10 @@ import { Agent, Thread } from "@memomate/openai";
 import path from "path";
 import { ThreadMetadata } from "../types/thread-metadata";
 import { CreateContactTool } from "./tools/CreateContactTool";
+import { SearchContactTool } from "./tools/SearchContactTool";
+import { CreateEventTool } from "./tools/CreateEventTool";
+import { GetCurrentDateTool } from "./tools/GetCurrentDateTool";
+import { CreateReminderTool } from "./tools/CreateReminderTool";
 
 const agent = new Agent({
   id: process.env.OPENAI_ASSISTANT_ID,
@@ -10,7 +14,11 @@ const agent = new Agent({
   instructions: path.join(__dirname, "instructions.md"),
   model: "gpt-4o-mini",
   tools: [
-    new CreateContactTool()
+    new CreateContactTool(),
+    new SearchContactTool(),
+    new CreateEventTool(),
+    new GetCurrentDateTool(),
+    new CreateReminderTool()
   ],
 });
 

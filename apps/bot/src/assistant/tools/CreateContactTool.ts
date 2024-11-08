@@ -42,6 +42,7 @@ export class CreateContactTool extends Tool {
 
   async run(parameters: CreateContactRunProps): Promise<string> {
     try {
+      console.log("Creando contacto...");
       const { metadata, name, relation, location } = parameters;
       
       // Crear el contacto en la base de datos
@@ -68,7 +69,7 @@ export class CreateContactTool extends Tool {
         embeddingValue
       );
 
-      return `He creado el contacto ${name} correctamente.`;
+      return `He creado el contacto ${name} correctamente. Su ID es ${contact.id}.`;
     } catch (e) {
       console.error(e);
       return `No se ha podido crear el contacto.`;

@@ -62,8 +62,13 @@ El siguiente paso ha sido crear la primera herramienta. Esta herramienta se enca
 ## Integración con Pinecone
 El siguiente paso ha sido la integración de Pinecone, para la indexación y búsqueda de contactos. Para ellos hemos creado un nuevo módulo en el paquete `bot` llamado `pinecone`. Este módulo se encargará de la inicialización e interacción con Pinecone. Además, hemos creado una clase `Embeddings` en el paquete `openai` que se encargará de la generación de embeddings.
 
-## Función de crear un contacto
+## Agregar más Tools
+El siguiente paso ha sido agregar más herramientas al asistente. Hemos creado herramientas para buscar un contacto, crear un evento, obtener la fecha actual y crear un recordatorio. Para ello hemos utilizado Cursor Composer, le hemos explicado como debe funcionar cada Tool y le hemos dicho que las cree una a una siguiente la arquitectura actual del proyecto `bot`. El resultado ha sido perfecto, no ha sido necesario hacer ningún el código proporcionado.
 
-## Función de agregar un evento a un contacto
+## Implementar Cron para Recordatorios
 
-## Función de crear un recordatorio
+## Agregar lógica para la configuración inicial del usuario
+
+## Agregar lógica para controlar el acceso del usuario
+
+## Integrar con Directus para tener un CMS de contenidos
