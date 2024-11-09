@@ -88,6 +88,7 @@ El siguiente paso ha sido agregar más herramientas al asistente. Hemos creado h
 - Se agregó la inicialización del `CronManager` en el flujo principal
 - Los cron jobs se inician después de que el bot está completamente configurado
 
+### Resumen del sistema de recordatorios
 Este sistema permite:
 - Programar recordatorios automáticos
 - Enviar notificaciones a los usuarios en momentos específicos
