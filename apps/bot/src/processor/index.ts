@@ -19,9 +19,10 @@ export class MemoMateProcessor {
   public async handleMessage(ctx: TextMessageContext) {
     try {
       const telegramUserId = ctx.message.from.id;
+      const chatId = ctx.message.chat.id;
       const message = ctx.message.text;
   
-      const user = await this._getOrCreateUser(telegramUserId);
+      const user = await this._getOrCreateUser(telegramUserId, chatId);
   
       const response = await this.assistant.sendMessage(user.id, user.openaiThreadId, message);
       ctx.reply(response);
@@ -30,7 +31,7 @@ export class MemoMateProcessor {
     }
   }
 
-  private async _getOrCreateUser(telegramUserId: number) {
+  private async _getOrCreateUser(telegramUserId: number, chatId: number) {
     const user = await prisma.user.findUnique({
       where: {
         telegramUserId: telegramUserId,
@@ -43,6 +44,7 @@ export class MemoMateProcessor {
     const newUser = await prisma.user.create({
       data: {
         telegramUserId: telegramUserId,
+        telegramChatId: chatId,
         openaiThreadId: threadId,
       },
     });

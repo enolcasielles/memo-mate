@@ -66,6 +66,33 @@ El siguiente paso ha sido la integración de Pinecone, para la indexación y bú
 El siguiente paso ha sido agregar más herramientas al asistente. Hemos creado herramientas para buscar un contacto, crear un evento, obtener la fecha actual y crear un recordatorio. Para ello hemos utilizado Cursor Composer, le hemos explicado como debe funcionar cada Tool y le hemos dicho que las cree una a una siguiente la arquitectura actual del proyecto `bot`. El resultado ha sido perfecto, no ha sido necesario hacer ningún el código proporcionado.
 
 ## Implementar Cron para Recordatorios
+### 1. Dependencias Añadidas
+- Se agregó la librería `cron` para manejar tareas programadas
+- Se incluyó `@types/cron` como dependencia de desarrollo
+
+### 2. Modificaciones en la Base de Datos
+- Se añadió el campo `telegramChatId` al modelo `User` en el schema de Prisma
+- Este cambio permite enviar notificaciones directamente al chat correcto del usuario
+
+### 3. Actualización del Procesador de Mensajes
+- Se modificó `MemoMateProcessor` para capturar y almacenar el `chatId` del usuario
+- El método `_getOrCreateUser` ahora guarda tanto el `telegramUserId` como el `telegramChatId`
+
+### 4. Integración del Sistema Cron
+- Se creó un nuevo servicio `CronManager` (referenciado en `index.ts`)
+- Se implementó como singleton para gestionar todas las tareas programadas
+- Se inicializa con una instancia del bot de Telegram para poder enviar notificaciones
+
+### 5. Arquitectura de Inicialización
+- El bot de Telegram ahora se inicializa antes que otros servicios
+- Se agregó la inicialización del `CronManager` en el flujo principal
+- Los cron jobs se inician después de que el bot está completamente configurado
+
+Este sistema permite:
+- Programar recordatorios automáticos
+- Enviar notificaciones a los usuarios en momentos específicos
+- Mantener un registro centralizado de los chats activos
+- Gestionar múltiples recordatorios por usuario
 
 ## Agregar lógica para la configuración inicial del usuario
 

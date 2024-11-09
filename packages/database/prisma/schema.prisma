@@ -11,6 +11,7 @@ model User {
   id                   String        @id @default(cuid())
   stripeSubscriptionId String?       @map("stripe_subscription_id")
   telegramUserId       BigInt        @unique @map("telegram_user_id")
+  telegramChatId       BigInt        @map("telegram_chat_id")
   hasCompletedSetup    Boolean       @default(false) @map("has_completed_setup")
   openaiThreadId    String           @map("openai_thread_id")
   createdAt            DateTime      @default(now()) @map("created_at")
