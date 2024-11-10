@@ -96,7 +96,9 @@ Este sistema permite:
 - Gestionar múltiples recordatorios por usuario
 
 ## Agregar lógica para la configuración inicial del usuario
+Se agrega lógica para manejar los diferentes comandos del bot en Telegram. En concreto, se ha añadido la lógica para manejar el comando `/start`, que es el que se ejecuta cuando un usuario se une al bot y se encarga de crear un usuario en la base de datos y enviar un mensaje de bienvenida en el que se incluye un enlace para que el usuario pueda iniciar sesión en la web y configurar su cuenta. También se ha añadido la lógica para el comando `/setup`, que genera la url de login del usuario en la web y le envía el mensaje con dicho enlace. Además, se ha añadido la lógica para manejar el comando `/help`, que es el que se ejecuta cuando un usuario envía un mensaje de ayuda al bot y le explica los comandos disponibles. 
 
 ## Agregar lógica para controlar el acceso del usuario
 
 ## Integrar con Directus para tener un CMS de contenidos
+https://chatgpt.com/c/672f4fd4-fd40-8007-86ed-54ed936ba62d

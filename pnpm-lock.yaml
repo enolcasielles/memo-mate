@@ -41,6 +41,9 @@ importers:
 
   apps/bot:
     dependencies:
+      '@memomate/core':
+        specifier: workspace:^
+        version: link:../../packages/core
       '@memomate/database':
         specifier: workspace:^
         version: link:../../packages/database

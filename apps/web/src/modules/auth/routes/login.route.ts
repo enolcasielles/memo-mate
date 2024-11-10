@@ -17,7 +17,7 @@ export async function LoginRoute(request: Request) {
     }
     const session = await prisma.session.findFirst({
       where: {
-        token,
+        id: token,
         expiresAt: {
           gt: new Date(),
         },

@@ -24,6 +24,7 @@ const run = async () => {
   
   bot.start((ctx) => processor.handleStart(ctx));
   bot.help((ctx) => processor.handleHelp(ctx));
+  bot.command('setup', (ctx) => processor.handleSetup(ctx));
   bot.on(message('text'), (ctx) => processor.handleMessage(ctx));
   
   // Iniciar cron jobs

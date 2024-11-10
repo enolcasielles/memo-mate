@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@memomate/core": "workspace:^",
     "@memomate/database": "workspace:^",
     "@memomate/openai": "workspace:^",
     "@pinecone-database/pinecone": "^2.2.2",
