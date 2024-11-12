@@ -5,6 +5,9 @@ import prisma from "@memomate/database";
 import { Thread } from "@memomate/openai";
 import { welcomeTemplate } from "./templates/welcome";
 import { helpTemplate } from "./templates/help";
+import { DEFAULT_CREDITS } from "@memomate/core";
+import { addMonths } from "date-fns";
+import { limitMessageTemplate } from "./templates/limit-message";
 
 export class MemoMateProcessor {
 
@@ -66,7 +69,27 @@ export class MemoMateProcessor {
   
       const user = await this._getOrCreateUser(telegramUserId, chatId);
   
+      const canSend = user.stripeSubscriptionId || user.credits > 0;
+      
+      if (!canSend) {
+        const link = await this.createSessionUrl(user.id);
+        ctx.reply(limitMessageTemplate(link), {
+          parse_mode: 'HTML'
+        });
+        return;
+      }
+
       const response = await this.assistant.sendMessage(user.id, user.openaiThreadId, message);
+      
+      if (!user.stripeSubscriptionId) {
+        await prisma.user.update({
+          where: { id: user.id },
+          data: {
+            credits: { decrement: 1 }
+          }
+        });
+      }
+      
       ctx.reply(response);
     } catch (error) {
       console.error(error);
@@ -88,6 +111,8 @@ export class MemoMateProcessor {
         telegramUserId: telegramUserId,
         telegramChatId: chatId,
         openaiThreadId: threadId,
+        credits: DEFAULT_CREDITS,
+        renewAt: addMonths(new Date(), 1),
       },
     });
 
