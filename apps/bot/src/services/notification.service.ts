@@ -23,6 +23,7 @@ export class NotificationService {
   async processReminders() {
     try {
       // Obtener recordatorios pendientes
+      // TODO: Hacer el proceso en batch. Como está ahora, si hay muchos recordatorios, puede saturar la base de datos.
       const pendingReminders = await prisma.reminder.findMany({
         where: {
           completed: false,

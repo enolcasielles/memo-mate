@@ -99,6 +99,11 @@ Este sistema permite:
 Se agrega lógica para manejar los diferentes comandos del bot en Telegram. En concreto, se ha añadido la lógica para manejar el comando `/start`, que es el que se ejecuta cuando un usuario se une al bot y se encarga de crear un usuario en la base de datos y enviar un mensaje de bienvenida en el que se incluye un enlace para que el usuario pueda iniciar sesión en la web y configurar su cuenta. También se ha añadido la lógica para el comando `/setup`, que genera la url de login del usuario en la web y le envía el mensaje con dicho enlace. Además, se ha añadido la lógica para manejar el comando `/help`, que es el que se ejecuta cuando un usuario envía un mensaje de ayuda al bot y le explica los comandos disponibles. 
 
 ## Agregar lógica para controlar el acceso del usuario
+Por último, hemos modificado la base de datos para añadir los campos `credits` y `renewAt` al modelo `User`. Estos campos se utilizan para controlar el acceso del usuario al bot. Cuando un usuario es free, es decir, que no tenga una suscripción active en Stripe, controlaremos el uso de créditos. Cada crédito será una llamada al asistente. Le daremos 10 créditos por defecto, que se renovarán cada mes. Para controlar esto, primero hemos implementado un webhook de Stripe que nos permita enterarnos cuando una sussripción es cancelada o expirada, así podremos volver a marcar el usuario como free. También, cuando se crea el usuario, le marcamos como free y le añadimos los créditos por defecto.
+
+Cuando se debe enviar un mensaje al asistente, comprobamos previamente si el usuario es Premium o tiene créditos disponibles. Si no, le enviamos un mensaje indicándole que puede actualizar a premium para poder enviar más mensajes. También le reducimos un crédito después de enviar el mensaje.
+
+Por último, creamos un nuevo cron que nos permite renovar los créditos de los usuarios free cada mes.
 
 ## Integrar con Directus para tener un CMS de contenidos
 https://chatgpt.com/c/672f4fd4-fd40-8007-86ed-54ed936ba62d
