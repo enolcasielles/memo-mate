@@ -19,6 +19,10 @@ export async function getSubscription(): Promise<ActionResponse<Subscription>> {
         statusCode: 404,
       });
 
+    if (!user.stripeSubscriptionId) {
+      return [null, null];
+    }
+
     const stripeSub = await stripe.subscriptions.retrieve(
       user.stripeSubscriptionId,
     );

@@ -23,7 +23,7 @@ export default async function StripeWebhookRoute(req: Request) {
       if (subscription.status !== "active") {
         await prisma.user.updateMany({
           where: {
-            stripeSubscriptionId: subscription.customer as string,
+            stripeSubscriptionId: subscription.id as string,
           },
           data: {
             stripeSubscriptionId: null,

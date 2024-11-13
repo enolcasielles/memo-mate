@@ -3,6 +3,7 @@
 import { Button } from "@/core/components/base/button";
 import { useState } from "react";
 import ContactForm from "./ContactForm";
+import { UserPlus } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -17,11 +18,19 @@ export default function CreateContactButton() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Nuevo Contacto</Button>
+        <Button 
+          className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-md hover:shadow-lg transition-all"
+        >
+          <UserPlus className="w-4 h-4" />
+          Nuevo Contacto
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Crear Nuevo Contacto</DialogTitle>
+          <DialogTitle className="flex items-center gap-2 text-xl">
+            <UserPlus className="w-5 h-5 text-blue-500" />
+            Crear Nuevo Contacto
+          </DialogTitle>
         </DialogHeader>
         <ContactForm onSuccess={() => setOpen(false)} />
       </DialogContent>
