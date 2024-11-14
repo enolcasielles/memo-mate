@@ -8,10 +8,49 @@ import {
 } from "@/core/components/base/card";
 import { cn } from "@/core/lib/utils";
 import { ArrowRight, MessageCircle, Calendar, Bell } from "lucide-react";
+import { getUserId } from "@/core/utils/get-user-id";
+import Link from "next/link";
 
-export default function HomePage() {
+export default async function HomePage() {
   const titleClasses = "relative text-4xl font-extrabold text-center mb-12 inline-block";
   const titleWrapperClasses = "flex justify-center items-center flex-col";
+
+  let isAuthenticated = false;
+  try {
+    await getUserId();
+    isAuthenticated = true;
+  } catch (error) {
+    isAuthenticated = false;
+  }
+
+  const renderCtaButton = (noUserText: string) => {
+    if (isAuthenticated) {
+      return (
+        <Link href="/dashboard">
+          <Button 
+            size="lg" 
+            className="rounded-full text-lg px-8 py-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+          >
+            Ir al Dashboard
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        </Link>
+      )
+    }
+    else {
+      return (
+        <a href="https://t.me/MemoMateBot?start=setup" target="_blank">
+          <Button 
+            size="lg" 
+            className="rounded-full text-lg px-8 py-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+          >
+            {noUserText}
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        </a>
+      )
+    }
+  }
 
   return (
     <div className={cn("min-h-screen")}>
@@ -26,13 +65,7 @@ export default function HomePage() {
               Tu asistente personal para mejorar tus relaciones
             </p>
             <div className="relative inline-block">
-              <Button 
-                size="lg" 
-                className="rounded-full text-lg px-8 py-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-              >
-                Comenzar ahora
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              {renderCtaButton("Comenzar ahora")}
               {/* Efecto decorativo opcional */}
               <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-100 blur-3xl opacity-20 rounded-full"></div>
             </div>
@@ -169,13 +202,7 @@ export default function HomePage() {
             Únete a MemoMate hoy y comienza a fortalecer tus conexiones de
             manera inteligente.
           </p>
-          <Button 
-            size="lg" 
-            className="rounded-full text-lg px-8 py-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-          >
-            Prueba MemoMate gratis
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+          {renderCtaButton("Prueba MemoMate gratis")}
         </section>
       </main>
     </div>

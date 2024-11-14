@@ -6,6 +6,7 @@ import { SearchContactTool } from "./tools/SearchContactTool";
 import { CreateEventTool } from "./tools/CreateEventTool";
 import { GetCurrentDateTool } from "./tools/GetCurrentDateTool";
 import { CreateReminderTool } from "./tools/CreateReminderTool";
+import { GetContactEventsTool } from "./tools/GetContactEventsTool";
 
 const agent = new Agent({
   id: process.env.OPENAI_ASSISTANT_ID,
@@ -18,7 +19,8 @@ const agent = new Agent({
     new SearchContactTool(),
     new CreateEventTool(),
     new GetCurrentDateTool(),
-    new CreateReminderTool()
+    new CreateReminderTool(),
+    new GetContactEventsTool()
   ],
 });
 

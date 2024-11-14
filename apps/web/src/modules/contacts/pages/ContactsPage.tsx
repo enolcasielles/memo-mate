@@ -2,18 +2,18 @@ import { getContactsAction } from "../actions/get-contacts.action";
 import ContactsProvider from "../contexts/ContactsContext";
 import ContactList from "../components/ContactList";
 import ContactFilters from "../components/ContactFilters";
-import Error500 from "@/core/components/errors/error500";
 import CreateContactButton from "../components/CreateContactButton";
 import ImportContactsDialog from "../components/ImportContactsDialog";
 import { getUserId } from "@/core/utils/get-user-id";
 import { Users, Search } from "lucide-react";
 import { Input } from "@/core/components/base/input";
+import Error from "@/core/components/errors/error";
 
 export default async function ContactsPage() {
   const userId = await getUserId();
   const [error, contacts] = await getContactsAction(userId);
 
-  if (error) return <Error500 message={error.message} />;
+  if (error) return <Error message={error.message} />;
 
   return (
     <ContactsProvider initialContacts={contacts}>

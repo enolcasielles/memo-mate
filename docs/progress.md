@@ -111,5 +111,12 @@ Lo siguiente que hemos hecho es mejorar la UI/UX del proyecto. Para ellos, ya qu
 ## Nueva sección Panel de Control
 Hemos creado una nueva sección en la web, el panel de control, que contiene un resumen de la información más relevante del usuario. Para ellos de nuevo hemos utilizado Cursor Composer, le hemos explicado que debía ser una sección con un diseño similar al de la landing y que debía contener una serie de tarjetas con información relevante del usuario. Que analizase el modelo de datos actual (pasándole el archivo `schema.prisma`) y que crease la vista con la información que considere más relevante.
 
+## Tool para recuperar la información de un contacto
+Hemos implementado un nuevo tool para que el asistente pueda recuperar la información de un contacto. Este tool se encargará de recuperar los últimos eventos de un contacto, para dárselos al asistente y que pueda usarlos para generar una respuesta más completa y personalizada.
+
+
+## Pantalla de errores. Sobre todo, que psa cuando accedes a un link de autenticación expirado. Manejar bien ese flujo.
+
+
 ## Integrar con Directus para tener un CMS de contenidos
 https://chatgpt.com/c/672f4fd4-fd40-8007-86ed-54ed936ba62d

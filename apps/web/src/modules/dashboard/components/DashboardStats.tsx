@@ -14,7 +14,7 @@ export function DashboardStats({ stats }: Props) {
         value={stats.totalContacts}
         icon={Users}
         description="Contactos registrados"
-        actionUrl="/contacts"
+        actionUrl="/dashboard/contacts"
         actionText="Ver contactos"
       />
       <StatsCard
@@ -22,7 +22,7 @@ export function DashboardStats({ stats }: Props) {
         value={stats.hasActiveSubscription ? "Ilimitados" : stats.credits}
         icon={CreditCard}
         description={stats.hasActiveSubscription ? "Suscripción activa" : "Sin suscripción"}
-        actionUrl="/subscription"
+        actionUrl="/dashboard/subscription"
         actionText="Gestionar suscripción"
       />
       <StatsCard

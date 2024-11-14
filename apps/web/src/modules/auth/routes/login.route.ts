@@ -3,15 +3,17 @@ import { NextResponse } from "next/server";
 import { CustomError } from "@memomate/core";
 import { apiError } from "@memomate/core";
 import prisma from "@memomate/database";
+import { redirect } from "next/navigation";
 
 export async function LoginRoute(request: Request) {
   const { searchParams } = new URL(request.url);
   const token = searchParams.get("token");
-
+  let errorType = null;
   try {
     if (!token) {
       throw new CustomError({
         message: "Token no proporcionado",
+        type: "INVALID_TOKEN",
         statusCode: 400,
       });
     }
@@ -31,6 +33,7 @@ export async function LoginRoute(request: Request) {
       throw new CustomError({
         message: "Sesión inválida o expirada",
         statusCode: 401,
+        type: "INVALID_TOKEN",
       });
     }
 
@@ -47,12 +50,8 @@ export async function LoginRoute(request: Request) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   } catch (error) {
     console.error(error);
-    if (error instanceof CustomError) return apiError(error);
-    return apiError(
-      new CustomError({
-        message: "Error interno del servidor",
-        statusCode: 500,
-      }),
-    );
+    if (error instanceof CustomError) errorType = error.type;
+    else errorType = "INTERNAL_SERVER_ERROR";
   }
+  redirect(`/error?type=${errorType}`);
 }

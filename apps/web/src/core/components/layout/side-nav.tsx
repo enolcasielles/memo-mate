@@ -73,9 +73,11 @@ export function NavDesktop() {
     <nav className="hidden lg:flex lg:flex-col w-64 border-r bg-white">
       {/* Logo y título */}
       <div className="p-6 border-b">
-        <h1 className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">
-          MemoMate
-        </h1>
+        <Link href="/" className="block">
+          <h1 className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">
+            MemoMate
+          </h1>
+        </Link>
       </div>
       <div className="flex flex-col flex-1 py-6">
         <NavContent />

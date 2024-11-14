@@ -1,13 +1,13 @@
 import { DashboardStats } from "../components/DashboardStats";
 import { getDashboardStats } from "../actions/dashboard.action";
-import Error500 from "@/core/components/errors/error500";
 import { getUserId } from "@/core/utils/get-user-id";
+import Error from "@/core/components/errors/error";
 
 export default async function DashboardPage() {
   const userId = await getUserId();
   const [error, stats] = await getDashboardStats(userId);
 
-  if (error) return <Error500 message={error.message} />;
+  if (error) return <Error message={error.message} />;
 
   return (
     <div className="container mx-auto px-4 py-8">

@@ -1,13 +1,13 @@
+import Error from "@/core/components/errors/error";
 import { SubscriptionStatus } from "../components/SubscriptionStatus";
 import SubscriptionProvider from "../contexts/SubscriptionContext";
-import Error500 from "@/core/components/errors/error500";
 import { getSubscription } from "../services/subscription.service";
 import { Sparkles } from "lucide-react";
 
 export default async function SubscriptionPage() {
   const [error, subscription] = await getSubscription();
 
-  if (error) return <Error500 message={error.message} />;
+  if (error) return <Error message={error.message} />;
 
   return (
     <SubscriptionProvider subscription={subscription}>

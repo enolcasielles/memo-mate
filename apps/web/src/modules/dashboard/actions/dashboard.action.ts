@@ -51,7 +51,7 @@ export async function getDashboardStats(userId: string): Promise<ActionResponse<
     if (error instanceof CustomError) return [buildCustomError(error), null];
     return [
       {
-        message: "Se ha producido un error al ejecutar el ejemplo",
+        message: "Se ha producido un error al obtener los datos del dashboard",
       },
       null,
     ];

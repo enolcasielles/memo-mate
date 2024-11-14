@@ -1,7 +1,7 @@
-import Error500 from "@/core/components/errors/error500";
 import { exampleAction } from "../actions/example.action";
 import ExampleProvider from "../contexts/ChallengeRoomContext";
 import ExampleComponent from "../components/ChallengeRoomDescription";
+import Error from "@/core/components/errors/error";
 
 export interface ExampleProps {
   params: {
@@ -14,7 +14,7 @@ const ExamplePage = async ({ params: { param } }: ExampleProps) => {
     param: param,
   });
 
-  if (error) return <Error500 message={error.message} />;
+  if (error) return <Error message={error.message} />;
 
   return (
     <ExampleProvider result={result}>
