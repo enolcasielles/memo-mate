@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetTrigger,
 } from "@/core/components/base/sheet";
@@ -16,7 +15,7 @@ import { HomeIcon, CreditCardIcon, UsersIcon } from "lucide-react";
 
 const menuItems = [
   {
-    title: "Dashboard",
+    title: "Panel de control",
     href: "/dashboard",
     icon: HomeIcon,
   },

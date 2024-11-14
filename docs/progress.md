@@ -105,5 +105,11 @@ Cuando se debe enviar un mensaje al asistente, comprobamos previamente si el usu
 
 Por último, creamos un nuevo cron que nos permite renovar los créditos de los usuarios free cada mes.
 
+## Mejoras en la UI/UX
+Lo siguiente que hemos hecho es mejorar la UI/UX del proyecto. Para ellos, ya que no contamos con una propuesta de diseño, lo que hemos hecho es una captrua del contenido de la landing actual, se la hemos pasado a Cursor Chat y le hemos pedido que realice una mejora de la misma, para obtener un diseño más moderno y atractivo. Iterando un poco en este proceso pidiéndole cambios visuales que se podían mejorar, hemos conseguido un diseño bastante mejorable. Una vez tenemos la landing, hemos ido por cada una de las páginas diciendo que aplique la misma línea de diseño de la landing a dicha página. Es sorprendente lo capaz que es de entendr el context y aplicar cambios significativos mejorando mucho la UI/UX del proyecto.
+
+## Nueva sección Panel de Control
+Hemos creado una nueva sección en la web, el panel de control, que contiene un resumen de la información más relevante del usuario. Para ellos de nuevo hemos utilizado Cursor Composer, le hemos explicado que debía ser una sección con un diseño similar al de la landing y que debía contener una serie de tarjetas con información relevante del usuario. Que analizase el modelo de datos actual (pasándole el archivo `schema.prisma`) y que crease la vista con la información que considere más relevante.
+
 ## Integrar con Directus para tener un CMS de contenidos
 https://chatgpt.com/c/672f4fd4-fd40-8007-86ed-54ed936ba62d
