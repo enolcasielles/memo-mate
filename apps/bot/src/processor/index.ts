@@ -8,6 +8,7 @@ import { helpTemplate } from "./templates/help";
 import { DEFAULT_CREDITS } from "@memomate/core";
 import { addMonths } from "date-fns";
 import { limitMessageTemplate } from "./templates/limit-message";
+import { MessageLogDirection } from '@memomate/database';
 
 export class MemoMateProcessor {
 
@@ -79,7 +80,23 @@ export class MemoMateProcessor {
         return;
       }
 
+      await prisma.messageLog.create({
+        data: {
+          userId: user.id,
+          message: message,
+          direction: MessageLogDirection.INCOMING,
+        }
+      });
+
       const response = await this.assistant.sendMessage(user.id, user.openaiThreadId, message);
+      
+      await prisma.messageLog.create({
+        data: {
+          userId: user.id,
+          message: response,
+          direction: MessageLogDirection.OUTGOING,
+        }
+      });
       
       if (!user.stripeSubscriptionId) {
         await prisma.user.update({

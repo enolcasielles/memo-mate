@@ -78,18 +78,23 @@ model Reminder {
 }
 
 model MessageLog {
-  id        String   @id @default(uuid())
-  userId    String   @map("user_id")
-  contactId String?  @map("contact_id")
+  id        String          @id @default(uuid())
+  userId    String          @map("user_id")
+  contactId String?         @map("contact_id")
   message   String
-  direction String   @db.VarChar(10)
-  createdAt DateTime @default(now()) @map("created_at")
+  direction MessageDirection
+  createdAt DateTime        @default(now()) @map("created_at")
 
   // Relaciones
   user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   contact Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
 
   @@map("message_logs")
+}
+
+enum MessageDirection {
+  INCOMING // Del usuario al bot
+  OUTGOING // Del bot al usuario
 }
 
 model Session {
