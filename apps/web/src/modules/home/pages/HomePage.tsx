@@ -10,6 +10,7 @@ import { cn } from "@/core/lib/utils";
 import { ArrowRight, MessageCircle, Calendar, Bell } from "lucide-react";
 import { getUserId } from "@/core/utils/get-user-id";
 import Link from "next/link";
+import { TELEGRAM_BOT_URL } from "@memomate/core";
 
 export default async function HomePage() {
   const titleClasses = "relative text-4xl font-extrabold text-center mb-12 inline-block";
@@ -39,7 +40,7 @@ export default async function HomePage() {
     }
     else {
       return (
-        <a href="https://t.me/MemoMateBot?start=setup" target="_blank">
+        <a href={TELEGRAM_BOT_URL} target="_blank">
           <Button 
             size="lg" 
             className="rounded-full text-lg px-8 py-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
