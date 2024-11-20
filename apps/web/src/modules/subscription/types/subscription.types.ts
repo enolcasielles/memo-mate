@@ -1,4 +1,4 @@
-import { StripeSubscriptionStatus } from "@memomate/core";
+import { StripeSubscriptionStatus } from "@/core/lib/stripe";
 
 export interface Subscription {
   id: string;

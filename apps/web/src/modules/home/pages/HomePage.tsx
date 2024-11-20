@@ -24,33 +24,43 @@ export default async function HomePage() {
     isAuthenticated = false;
   }
 
-  const renderCtaButton = (noUserText: string) => {
+  const renderButtons = (noUserText: string) => {
     if (isAuthenticated) {
       return (
-        <Link href="/dashboard">
-          <Button 
-            size="lg" 
-            className="rounded-full text-lg px-8 py-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-          >
-            Ir al Dashboard
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </Link>
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+          <a href={TELEGRAM_BOT_URL} target="_blank">
+            <Button 
+              size="lg" 
+              className="rounded-full text-lg px-8 py-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            >
+              {noUserText}
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </a>
+          <Link href="/dashboard">
+            <Button 
+              variant="outline"
+              size="lg" 
+              className="rounded-full text-lg px-8 py-6 border-2 border-blue-500 text-blue-600 hover:bg-blue-50 font-bold transform hover:scale-105 transition-all duration-200"
+            >
+              Ir al Dashboard
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
+        </div>
       )
     }
-    else {
-      return (
-        <a href={TELEGRAM_BOT_URL} target="_blank">
-          <Button 
-            size="lg" 
-            className="rounded-full text-lg px-8 py-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-          >
-            {noUserText}
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </a>
-      )
-    }
+    return (
+      <a href={TELEGRAM_BOT_URL} target="_blank">
+        <Button 
+          size="lg" 
+          className="rounded-full text-lg px-8 py-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+        >
+          {noUserText}
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
+      </a>
+    )
   }
 
   return (
@@ -66,7 +76,7 @@ export default async function HomePage() {
               Tu asistente personal para mejorar tus relaciones
             </p>
             <div className="relative inline-block">
-              {renderCtaButton("Comenzar ahora")}
+              {renderButtons("Comenzar ahora")}
               {/* Efecto decorativo opcional */}
               <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-100 blur-3xl opacity-20 rounded-full"></div>
             </div>
@@ -203,7 +213,7 @@ export default async function HomePage() {
             Únete a MemoMate hoy y comienza a fortalecer tus conexiones de
             manera inteligente.
           </p>
-          {renderCtaButton("Prueba MemoMate gratis")}
+          {renderButtons("Probar MemoMate gratis")}
         </section>
       </main>
     </div>

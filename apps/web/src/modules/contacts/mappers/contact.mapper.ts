@@ -1,4 +1,4 @@
-import { Contact as PrismaContact } from "@prisma/client";
+import { PrismaContact } from "@memomate/database";
 import { Contact } from "../types/contact.type";
 
 export const mapContactEntityToContact = (

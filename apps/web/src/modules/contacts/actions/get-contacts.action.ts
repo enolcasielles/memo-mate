@@ -4,7 +4,6 @@ import { buildCustomError, CustomError } from "@memomate/core";
 import { ActionResponse } from "@memomate/core";
 import { Contact, ContactFilters } from "../types/contact.type";
 import prisma from "@memomate/database";
-import { Prisma } from "@prisma/client";
 
 export async function getContactsAction(
   userId: string,
@@ -18,13 +17,13 @@ export async function getContactsAction(
           {
             name: {
               contains: filters.search,
-              mode: "insensitive" as Prisma.QueryMode,
+              mode: "insensitive" as any,
             },
           },
           {
             location: {
               contains: filters.search,
-              mode: "insensitive" as Prisma.QueryMode,
+              mode: "insensitive" as any,
             },
           },
         ],
@@ -32,13 +31,13 @@ export async function getContactsAction(
       ...(filters?.location && {
         location: {
           contains: filters.location,
-          mode: "insensitive" as Prisma.QueryMode,
+          mode: "insensitive" as any,
         },
       }),
       ...(filters?.relationship && {
         relationship: {
           contains: filters.relationship,
-          mode: "insensitive" as Prisma.QueryMode,
+          mode: "insensitive" as any,
         },
       }),
     };

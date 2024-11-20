@@ -118,5 +118,9 @@ Hemos implementado un nuevo tool para que el asistente pueda recuperar la inform
 ## Pantalla de errores. Sobre todo, que psa cuando accedes a un link de autenticación expirado. Manejar bien ese flujo.
 Por último, hemos creado una pantalla de errores que se muestra cuando el usuario intenta acceder a una ruta privada sin estar autenticado, o cuando el link de acceso expira.
 
-## Integrar con Directus para tener un CMS de contenidos
+## TODO: Probar el bot. Generar una buana base de ejemplos y analizar sus resultados
+
+## TODO: Valorar despliegues
+
+## TODO: Integrar con Directus para tener un CMS de contenidos
 https://chatgpt.com/c/672f4fd4-fd40-8007-86ed-54ed936ba62d
