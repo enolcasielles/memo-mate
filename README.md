@@ -23,11 +23,11 @@ MemoMate es un sistema de gestión de relaciones personales (PRM) que te ayuda a
 
 ## 🛠️ Tecnologías
 
-- **Frontend**: Next.js 14, TailwindCSS, Shadcn UI
-- **Backend**: NestJS, Node.js
+- **Web**: Next.js 14, TailwindCSS, Shadcn UI
+- **Bot**: Node.js, telegraf
 - **Base de Datos**: PostgreSQL, Prisma ORM
-- **IA**: OpenAI API, Pinecone
-- **Otros**: Telegram Bot API, Stripe
+- **IA**: OpenAI, Pinecone
+- **Otros**: Stripe
 
 ## 📦 Estructura del Proyecto
 
@@ -73,15 +73,17 @@ MemoMate es un sistema de gestión de relaciones personales (PRM) que te ayuda a
 
 4. **Desarrollo**
    ```bash
-   # Iniciar base de datos
-   cd apps/infra
-   docker-compose up -d
+   # Para arrancar todo, base de datos local incluido
+   pnpm dev
 
    # Iniciar aplicación web
    pnpm dev --filter web
 
    # Iniciar bot de Telegram
    pnpm dev --filter bot
+
+   # Iniciar infraestructura de base de datos
+   pnpm dev --filter infra
    ```
 
 ## 📝 Documentación
@@ -92,11 +94,3 @@ Para más información sobre la arquitectura y funcionamiento del proyecto, cons
 - [Documentación del Bot](docs/bot.md)
 - [Documentación de la Web](docs/web.md)
 - [Modelo de Base de Datos](docs/database.md)
-
-## 🤝 Contribuir
-
-Las contribuciones son bienvenidas. Por favor, lee nuestras guías de contribución antes de enviar un pull request.
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
