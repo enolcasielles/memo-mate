@@ -121,7 +121,5 @@ Por último, hemos creado una pantalla de errores que se muestra cuando el usuar
 ## Nuevas Tools para Actualizar y Borrar Contactos
 Hemos creado dos nuevas tools para que el asistente pueda actualizar y borrar contactos.
 
-## TODO: Valorar despliegues
-
-## TODO: Integrar con Directus para tener un CMS de contenidos
-https://chatgpt.com/c/672f4fd4-fd40-8007-86ed-54ed936ba62d
+## Agrega página de eventos de un contacto
+Hemos creado una nueva página para ver los eventos de un contacto. Para ello hemos creado un nuevo componente `EventList` que lista los eventos de un contacto y una nueva página `ContactEventsPage` que es la que renderiza esta lista.
