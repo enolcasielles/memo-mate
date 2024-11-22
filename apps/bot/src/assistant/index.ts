@@ -7,6 +7,8 @@ import { CreateEventTool } from "./tools/CreateEventTool";
 import { GetCurrentDateTool } from "./tools/GetCurrentDateTool";
 import { CreateReminderTool } from "./tools/CreateReminderTool";
 import { GetContactEventsTool } from "./tools/GetContactEventsTool";
+import { UpdateContactTool } from "./tools/UpdateContactTool";
+import { DeleteContactTool } from "./tools/DeleteContactTool";
 
 const agent = new Agent({
   id: process.env.OPENAI_ASSISTANT_ID,
@@ -16,11 +18,13 @@ const agent = new Agent({
   model: "gpt-4o-mini",
   tools: [
     new CreateContactTool(),
+    new UpdateContactTool(),
+    new DeleteContactTool(),
     new SearchContactTool(),
     new CreateEventTool(),
     new GetCurrentDateTool(),
     new CreateReminderTool(),
-    new GetContactEventsTool()
+    new GetContactEventsTool(),
   ],
 });
 

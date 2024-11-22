@@ -88,6 +88,20 @@ export class PineconeService {
       return [];
     }
   }
+
+  async deleteContact(contactId: string) {
+    try {
+      const pinecone = getPineconeClient();
+      const index = pinecone.index(this.indexName);
+
+      await index.deleteOne(contactId);
+
+      return true;
+    } catch (error) {
+      console.error('Error al eliminar contacto de Pinecone:', error);
+      return false;
+    }
+  }
 }
 
 export default PineconeService; 
