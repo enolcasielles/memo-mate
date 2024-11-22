@@ -6,6 +6,8 @@ import { useContacts } from "../contexts/ContactsContext";
 import { useState } from "react";
 import ContactForm from "./ContactForm";
 import { MapPin, UserCircle, Users2, Pencil, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { Calendar } from "lucide-react";
 
 interface Props {
   contact: Contact;
@@ -57,6 +59,16 @@ export default function ContactCard({ contact }: Props) {
 
         {/* Botones de acción */}
         <div className="flex gap-2 pt-2">
+          <Link href={`/dashboard/contacts/${contact.id}/events`}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="flex items-center gap-1.5 hover:bg-blue-50 hover:text-blue-600"
+            >
+              <Calendar className="w-4 h-4" />
+              Eventos
+            </Button>
+          </Link>
           <Button
             variant="ghost"
             size="sm"
