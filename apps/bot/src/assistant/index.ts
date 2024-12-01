@@ -10,30 +10,28 @@ import { GetContactEventsTool } from "./tools/GetContactEventsTool";
 import { UpdateContactTool } from "./tools/UpdateContactTool";
 import { DeleteContactTool } from "./tools/DeleteContactTool";
 
-const agent = new Agent({
-  id: process.env.OPENAI_ASSISTANT_ID,
-  name: "MemoMate Assistant",
-  description: path.join(__dirname, "description.md"),
-  instructions: path.join(__dirname, "instructions.md"),
-  model: "gpt-4o-mini",
-  tools: [
-    new CreateContactTool(),
-    new UpdateContactTool(),
-    new DeleteContactTool(),
-    new SearchContactTool(),
-    new CreateEventTool(),
-    new GetCurrentDateTool(),
-    new CreateReminderTool(),
-    new GetContactEventsTool(),
-  ],
-});
-
 export class MemoMateAssistant {
   private agent: Agent;
   private static instance: MemoMateAssistant;
 
   private constructor() {
-    this.agent = agent;
+    this.agent = new Agent({
+      id: process.env.OPENAI_ASSISTANT_ID,
+      name: "MemoMate Assistant",
+      description: path.join(__dirname, "description.md"),
+      instructions: path.join(__dirname, "instructions.md"),
+      model: "gpt-4o-mini",
+      tools: [
+        new CreateContactTool(),
+        new UpdateContactTool(),
+        new DeleteContactTool(),
+        new SearchContactTool(),
+        new CreateEventTool(),
+        new GetCurrentDateTool(),
+        new CreateReminderTool(),
+        new GetContactEventsTool(),
+      ],
+    });;
   }
 
   static getInstance(): MemoMateAssistant {
