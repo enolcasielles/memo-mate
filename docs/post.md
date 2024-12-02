@@ -2,6 +2,11 @@
 
 ## Introducción
 
+```
+```
+
+##
+
 En este artículo quiero compartir mi experiencia desarrollando MemoMate, un asistente personal en Telegram que ayuda a gestionar y mejorar nuestras relaciones personales. La idea surgió de una necesidad personal: tener una forma sencilla de recordar detalles importantes sobre las personas que me importan - desde cumpleaños hasta conversaciones significativas.
 
 ## ¿Qué es MemoMate?
@@ -9,54 +14,69 @@ En este artículo quiero compartir mi experiencia desarrollando MemoMate, un asi
 MemoMate es un bot de Telegram que actúa como un PRM (Personal Relationship Manager). A través de una conversación natural, puedes contarle eventos o información sobre tus contactos, y el bot se encarga de almacenar y organizar esta información. Más tarde, puedes preguntarle sobre cualquier persona o evento, y te ayudará a recordar los detalles importantes.
 
 Por ejemplo, podrías decirle:
+
 > "Ayer hablé con mi primo Marcos, me contó que va a empezar en una nueva empresa"
 
 Y días después preguntarle:
+
 > "¿Qué me contó Marcos la última vez?"
 
-El bot recordará la conversación y te ayudará a mantener vivas tus relaciones personales.
+El bot recordará la conversación y te ayudará a mantener vivas tus relaciones personales. También tendrá la capacidad de ir agregando nuevos contactos a tu cuenta del usuario, segun detecte que le estás hablando de un contacto que no tiene guardado. Además, también te permitirá registrar recordatorios sobre sus contactos. Por detrás contará con un sistema de envío de recordatorios que hará que recibas un mensaje con la información del recordatorio en la fecha asignada.
+
+Además del bot en Telegram, MemoMate también cuenta con una plataforma web que otorga al usuario ciertas funcionalidades:
+
+* **Gestión de la suscripción**: MemoMate se podrá utilizar de forma gratuita con limitaciones. Para poder eliminar estas limitaciones, el usuario deberá hacerse Premium. La web contará con una sección para manejar esta suscripción, que a su vez, se apoyará en Stripe.
+* **Gestión de Contactos**: El bot tendrá la capacidad de ir agregando, eliminando o actualizando los contactos del usuario, según la conversación natural que se vaya dando. Además de esto, el usuario contará con una sección en la web en la que también pueda realizar esta gestión y con una característica extra importante, que es la importación vía csv.
+* **Gestión de Eventos:** Al igual que los contactos, la conversación natural del usuario con el bot, generará en el sistema diferentes eventos asociados a un contacto. El usuario podrá ver y gestionar estos eventos también desde la aplicación web.
+* **Analíticas:** La aplicación web le dará al usuario algunos datos interesantes acerca del uso de su cuenta.
 
 ## Arquitectura y Tecnologías
 
-Decidí implementar MemoMate como un monorepo con dos componentes principales:
+MemoMate se compone de 2 componentes (o aplicaciones) principales:
 
 1. **Bot de Telegram**: para manejar toda la interacción con los usuarios.
 2. **Aplicación Web**: para que el usuario pueda gestionar su cuenta y los contactos.
 
-### ¿Por qué estas tecnologías?
+### Tecnologías empleadas
 
-- **Monorepo con pnpm**: La decisión de usar un monorepo vino motivada por la necesidad de compartir código entre el bot y la web. Por ejemplo, la lógica de negocio, tipos, y utilidades. PNPM fue la elección natural por su eficiencia en el manejo de dependencias y su excelente soporte para workspaces.
-
-- **PostgreSQL + Prisma**: Necesitaba una base de datos robusta que pudiera manejar relaciones complejas entre usuarios, contactos y eventos. Prisma añade una capa de type-safety que hace el desarrollo más seguro y productivo. Además, PostgreSQL tiene soporte nativo para búsquedas vectoriales a través de pgvector, lo cual es crucial para futuras mejoras en las búsquedas semánticas.
-
-- **OpenAI**: La API de OpenAI, especialmente con sus Assistants, ofrece capacidades avanzadas de procesamiento de lenguaje natural. La posibilidad de definir "tools" personalizadas que el asistente puede utilizar fue clave para implementar las funcionalidades principales del bot.
-
-- **Next.js**: Para la aplicación web, Next.js fue la elección ideal por varios motivos:
-  - Server Components y RSC para mejor rendimiento
-  - API Routes para implementar endpoints serverless
-  - Excelente soporte para TypeScript
-  - Integración nativa con Vercel para despliegues
-
-- **Pinecone**: Para implementar búsquedas semánticas eficientes sobre la información de los contactos, necesitábamos una base de datos vectorial. Pinecone destaca por su facilidad de uso, rendimiento y capacidad para manejar grandes volúmenes de datos vectoriales.
+* **Monorepo con pnpm**: Ambas aplicacione (bot y web) tenían funcionalidad que era interesante poder compartir. Por esta razón, decidí utilizar una arquitectura de monorepo en el que vivan estas 2 aplicaciones y cuente con paquetes con las funcionalidades que se deban compartir. PNPM fue la elección natural por su eficiencia en el manejo de dependencias y su excelente soporte para workspaces.
+* **PostgreSQL + Prisma**: Necesitaba una base de datos robusta que pudiera manejar relaciones complejas entre usuarios, contactos y eventos. PostgreSQL fue el candidato perfecto. Prisma añade una capa de type-safety y nos facilita mucho la labor tanto para manejar las migraciones en la base de datos como para implementar las diferentes comunicaciones con la base de datos que sean necesarias.
+* **OpenAI**: La API de OpenAI, especialmente con sus Assistants, ofrece capacidades avanzadas de procesamiento de lenguaje natural. La posibilidad de definir "tools" personalizadas que el asistente puede utilizar fue clave para implementar las funcionalidades principales del bot.
+* **Next.js**: Para la aplicación web, Next.js fue la elección ideal por varios motivos:
+  * Server Components para mejor rendimiento
+  * API Routes para implementar los endpoints serverless que necesitemos
+  * Integración nativa con Vercel para despliegues
+* **Tailwind CSS y Shadcn**: A la hora de definir la UI de la aplicación web, esta combinación es perfecta por la facilidad que otorga a la hora de crear los diferentes componentes de una forma robusta y eficiente.
+* **Pinecone**: Para implementar búsquedas semánticas sobre la información de los contactos, necesitábamos una base de datos vectorial. Pinecone destaca por su facilidad de uso, rendimiento y capacidad para manejar grandes volúmenes de datos vectoriales.
+* **Telegraf:** Para implementar el bot de telegram, optamos por utilizar la librería telegraf que destaca por su buen funcionamiento y facilidad de integración.
 
 ## El Proceso de Desarrollo
 
+Vamos a explicar ahora como se ha abordado el proceso de desarrollo del proyecto, pasando por todos los pasos que se han ido dando para llegar desde una idea hasta un producto totalmente funcional. No vamos a entrar en detalle de absolutamente todas las piezas de código que se fueron desarrollando, ya que haríamos el artículo excesivamente extenso. Voy a ir explicando como se fueron definiendo las diferentes partes y parándome algo más en aquellas que considero más interesantes. Recomiendo abrir el [repositorio del proyecto](https://github.com/enolcasielles/memo-mate) y ver en más detalle la implemntación realizada
+
 ### Definición del Proyecto
-Comencé definiendo claramente el alcance y la arquitectura. Utilicé ChatGPT para refinar las ideas y documenté todo en la carpeta `docs`. Esta fase de planificación fue crucial para tener una visión clara del camino a seguir.
+
+Comencé definiendo claramente el alcance y la arquitectura. Utilicé ChatGPT para refinar las ideas y documenté todo en la carpeta `docs`. Esta fase de planificación fue crucial para tener una visión clara del camino a seguir y para poder disponer de la información necesaria para llevar a cabo un [desarrollo eficiente con Cursor](https://www.enolcasielles.com/blog/using-cursor). En esta carpeta creamos diferentes documentos: explicación del proyecto, definición de la base de datos, arquitectura, etc.&#x20;
 
 ### Estructura Base
-Implementé el monorepo con tres paquetes principales:
-- `core`: Utilidades compartidas
-- `database`: Modelos y migraciones de Prisma
-- `openai`: Abstracción para la interacción con OpenAI
+
+Se utilizó una arquitectura de monorepo con los diferentes componentes. Por un lado las 2 aplicaciones que ya mencionamos (el bot y la web) y por otro lado los diferentes paquetes en los que se apoyarán estas aplicaciones. También contamos con una aplicación más que llamamos infra. Esta aplicación será básicamente un docker-compose que nos permitirá levantar la infra en local que necesitemos, en nuestro caso únicamente la base de datos PostgreSQL pero lo mantenemos como un docker-compose para que sea fácil incorporar nuevos servicios a futuro si fuera necesario.
+
+En cuanto a los paquetes, tendremos los siguientes
+
+* `core`: En donde implementaremos utilidades compartidas
+* `database`: Que se encargará de gestionar todo lo que tenga que ver con la base de datos usando Prisma. Modelos, migraciones, etc.
+* `openai`: Abstracción para la interacción con OpenAI. Definiremos en esta paquete clases y utilidades interesantes que nos facilitarán al creación y gestión del Asistente en OpenAI.
 
 ### Sistema de Autenticación
 
-Desarrollé un sistema de autenticación simple pero efectivo que permite a los usuarios acceder a la web directamente desde Telegram. El flujo funciona así:
+El sistema de autenticación de la plataforma es algo inusual. La idea no es contar con un mecanismo de Login y Registro al uso, si no que sea el bot quien se encargue de gestionar esto. El bot tendrá la capacidad de identificar al usuario con el que está interactuando, creando usuarios nuevos en cada nueva conversación. Cuando el usuario tenga que ir a la plataforma web, tanto porque el bot se lo requiere o porque el usuario desea hacerlo, el bot será el responsable de generar un link único y temporal de acceso.
 
-1. Cuando el usuario necesita acceder a la web (por ejemplo, al usar el comando `/setup`), el bot genera una sesión temporal con un token único:
+Para conseguir esto, se desarrolló un sistema de autenticación simple pero efectivo. El flujo funciona así:
 
-```typescript
+1. Cuando el usuario necesita acceder a la web, el bot genera una sesión temporal con un token único. Ese link será válido solo durante 10 minutos (expiración de la sesión).
+
+```tsx
   private async createSessionUrl(userId: string) {
     const session = await prisma.session.create({
       data: {
@@ -69,13 +89,12 @@ Desarrollé un sistema de autenticación simple pero efectivo que permite a los 
   }
 ```
 
+1. El bot envía este link al usuario y este podrá hacer clic en el, lo cual disparará la Api Route `/login` en la web. Esta ruta hará lo siguiente:
+   * Verificar que el token sea válido y no haya expirado
+   * Si es válido, crea una cookie de 30 días y redirigir a `/dashboard`
+   * Si no es válido, redirigir a una página de error
 
-2. El bot envía al usuario un mensaje con el link generado. Este link disparará el Api Route `login` en la web, el cual:
-   - Verifica que el token sea válido y no haya expirado
-   - Si es válido, crea una cookie de sesión y redirige a `/dashboard`
-   - Si no es válido, redirige a una página de error
-
-```typescript
+```tsx
 export async function LoginRoute(request: Request) {
   const { searchParams } = new URL(request.url);
   const token = searchParams.get("token");
@@ -128,17 +147,17 @@ export async function LoginRoute(request: Request) {
 }
 ```
 
-De esta forma, conseguimos un mecanismo sencillo pero seguro y efectivo para que el usuario pueda acceder a su cuenta en la web desde Telegram.
-
+De esta forma, conseguimos un mecanismo sencillo pero seguro y efectivo para que el usuario pueda acceder a su cuenta en la web desde Telegram. El usuario una vez identificado, ya podrá volver a su cuenta siempre que quiera (durante 30 días) simplemente accediendo a la web. Cuando la cookie caduque, deberá volver al bot para generar un nuevo link de acceso.
 
 ### Integración con OpenAI
 
-Para manejar la interacción con OpenAI de forma limpia y reutilizable, creé un paquete dedicado `@memomate/openai` que abstrae toda la complejidad de la API. Este paquete implementa cuatro clases principales:
+Para manejar la interacción con OpenAI de forma limpia y reutilizable, se creó un paquete dedicado `@memomate/openai` que abstrae toda la complejidad de la API. Este paquete implementa cuatro clases principales:
 
 #### Agent
+
 La clase `Agent` representa un asistente de OpenAI y maneja su ciclo de vida:
 
-```typescript
+```tsx
 interface Props {
   id: string;
   name: string;
@@ -165,9 +184,10 @@ export class Agent {
 ```
 
 #### Thread
+
 Gestiona una conversación con el asistente, incluyendo el procesamiento de mensajes y la ejecución de herramientas:
 
-```typescript
+```tsx
 export class Thread<T extends Record<string, any>> {
   async send(message: string): Promise<string> {
     // Enviar mensaje al thread
@@ -196,9 +216,10 @@ export class Thread<T extends Record<string, any>> {
 ```
 
 #### Tool
+
 Una clase abstracta que define la estructura para las herramientas que puede usar el asistente:
 
-```typescript
+```tsx
 export abstract class Tool {
   name: string;
   description: string;
@@ -215,9 +236,10 @@ export abstract class Tool {
 ```
 
 #### Embeddings
+
 Maneja la generación de embeddings para búsquedas semánticas:
 
-```typescript
+```tsx
 export class Embeddings {
   private model = 'text-embedding-3-small';
   private dimensions = 1024;
@@ -238,162 +260,175 @@ export class Embeddings {
 De esta forma, el paquete `@memomate/openai` nos proporciona una capa de abstracción sobre la API de OpenAI, facilitando su uso y permitiendo una mayor flexibilidad en futuras implementaciones.
 
 ### Implementación del Asistente
-El siguiente paso fue implementar el Asistente en sí, ya dentro del bot que es donde será ejecutado. Para ellos, hemos creado la clase `MemoMateAssistant` que se encarga de inicializar el asistente y exponer sus herramientas para que sean usadas en los Threads. También hemos creado cada una de las herramientas que el asistente puede usar, todas ellas heredando de la clase `Tool`. Y por último, definir las instrucciones del asistente y su descripción, para que pueda llevar a cabo todas sus funciones correctamente. Con esto ya tenemos todo lo necesario para que el bot de Telegram pueda interactuar con el asistente de OpenAI. Solo nos queda conectar ambas partes.
 
-### Conectar el Bot con el Asistente
+Una vez contamos con este paquete @memomate/openai ya estamos en disposición de proceder con la implementación del Asistente. En la aplicación bot, creamos una nueva carpeta assistant que se encargue de esto.&#x20;
 
-Para conectar el bot de Telegram con el asistente de OpenAI, implementé una estructura clara y modular:
+Empezamos con las tools, o las herramientas que le daremos al asistente para que pueda realizar las diferentes acciones necesarias: Crear un Contacto, Buscar un Contacto, Crear un Evento, etc. Cada herramienta será una clase que extienda de la clase abstracta Tool en la que le explicaremos a OpenAI lo que dicha herramienta hace, que parámetros necesita y donde implementaremos su lógica correspondiente en el método run.
 
-1. **Inicialización del Bot**
-En primer lugar, utilizamos la librería `telegraf` para inicializar el bot de Telegram utilizando su token. Si quieres entender mejor como crear un bot en Telegram, puedes ver [este tweet](https://x.com/enolcasielles/status/1852607518947611133) donde lo explico. Inicialiamos el Asistente que hemos creado y asociamos los eventos del bot con las funciones del procesador de mensajes.
-
-
-```typescript
-const run = async () => {
-  // Inicializar bot y servicios necesarios
-  const bot = new Telegraf(process.env.BOT_TOKEN);
-  const assistant = MemoMateAssistant.getInstance();
-  const pinecone = PineconeService.getInstance();
-  
-  // Asegurar que los servicios están listos
-  await Promise.all([
-    assistant.init(),
-    pinecone.init()
-  ]);
-  
-  const processor = new MemoMateProcessor(assistant);
-  
-  // Configurar handlers para los diferentes comandos
-  bot.start((ctx) => processor.handleStart(ctx));
-  bot.help((ctx) => processor.handleHelp(ctx));
-  bot.command('setup', (ctx) => processor.handleSetup(ctx));
-  bot.on(message('text'), (ctx) => processor.handleMessage(ctx));
-  
-  bot.launch();
-}
-```
-
-2. **Procesamiento de Mensajes**
-La clase `MemoMateProcessor` es la que se encarga de manejar toda la lógica de procesamiento de mensajes. Esta clase:
-- Gestiona los diferentes comandos del bot (`/start`, `/help`, `/setup`)
-- Procesa los mensajes de texto normales
-- Realiza un control del usuario para ver si puede usar el bot o no.
-- Mantiene un registro de los mensajes
-- Envía el mensaje al asistente de OpenAI y devuelve la respuesta al usuario
-
-```typescript
-public async handleMessage(ctx: TextMessageContext) {
-  try {
-    const telegramUserId = ctx.message.from.id;
-    const chatId = ctx.message.chat.id;
-    const message = ctx.message.text;
-
-    // Obtener o crear usuario
-    const user = await this._getOrCreateUser(telegramUserId, chatId);
-
-    // Verificar si el usuario puede enviar mensajes
-    const canSend = user.stripeSubscriptionId || user.credits > 0;
-    if (!canSend) {
-      const link = await this.createSessionUrl(user.id);
-      ctx.reply(limitMessageTemplate(link), {
-        parse_mode: 'HTML'
-      });
-      return;
-    }
-
-    // Registrar el mensaje entrante
-    await prisma.messageLog.create({
-      data: {
-        userId: user.id,
-        message: message,
-        direction: MessageLogDirection.INCOMING,
-      }
+```tsx
+export class CreateContactTool extends Tool {
+  constructor() {
+    super({
+      name: "CreateContact",
+      description:
+        "Esta herramienta crea un nuevo contacto en la base de datos.",
+      parameters: {
+        type: "object",
+        properties: {
+          name: {
+            type: "string",
+            description:
+              "El nombre del contacto que se desea crear.",
+          },
+          relation: {
+            type: "string",
+            description:
+              "La relación del contacto con el usuario. Ejemplo: 'Amigo', 'Familiar', 'Trabajo', etc.",
+          },
+          location: {
+            type: "string",
+            description:
+              "La ubicación del contacto. Puede ser una ciudad, un país, etc. Ejemplos: 'Madrid', 'Asturias', 'Argentina', etc.",
+          },
+        },
+        required: ["name"],
+      },
     });
+  }
 
-    // Enviar mensaje al asistente y obtener respuesta
-    const response = await this.assistant.sendMessage(
-      user.id, 
-      user.openaiThreadId, 
-      message
-    );
-    
-    // Registrar la respuesta
-    await prisma.messageLog.create({
-      data: {
-        userId: user.id,
-        message: response,
-        direction: MessageLogDirection.OUTGOING,
-      }
-    });
-    
-    // Decrementar créditos si es usuario gratuito
-    if (!user.stripeSubscriptionId) {
-      await prisma.user.update({
-        where: { id: user.id },
+  async run(parameters: CreateContactRunProps): Promise<string> {
+    try {
+      console.log("Creando contacto...");
+      const { metadata, name, relation, location } = parameters;
+      
+      // Crear el contacto en la base de datos
+      const contact = await prisma.contact.create({
         data: {
-          credits: { decrement: 1 }
+          name,
+          relation,
+          location,
+          userId: metadata.userId
         }
       });
+
+      // Generar el texto para el embedding
+      const contactText = `Nombre: ${name}${relation ? `, Relación: ${relation}` : ''}${location ? `, Ubicación: ${location}` : ''}`;
+      
+      // Generar embedding usando OpenAI
+      const embeddings = new Embeddings();
+      const embeddingValue = await embeddings.generateEmbedding(contactText);
+      
+      // Indexar en Pinecone
+      await PineconeService.getInstance().upsertContact(
+        metadata.userId,
+        contact.id,
+        embeddingValue
+      );
+
+      return `He creado el contacto ${name} correctamente. Su ID es ${contact.id}.`;
+    } catch (e) {
+      console.error(e);
+      return `No se ha podido crear el contacto.`;
     }
-    
-    // Enviar respuesta al usuario
-    ctx.reply(response);
-  } catch (error) {
-    console.error(error);
   }
 }
 ```
 
-3. **Templates de Mensajes**
-Para mantener una comunicación clara y consistente con los usuarios, definí templates para diferentes tipos de mensajes:
 
-- Mensaje de bienvenida cuando un usuario inicia el bot
-- Mensaje de ayuda con los comandos disponibles
-- Mensaje cuando se alcanza el límite de créditos gratuitos
 
-Por ejemplo, el template de bienvenida:
+A continuación, creamos 2 archivos de texto (formato markdown), para definir la descripción y las instrucciones de nuestro asistente. Aquí es donde le explicamos a nuestro asistente todo lo que necesita para llevar a cabo su propósito.&#x20;
 
-```typescript
-export const welcomeTemplate = (link: string) => {
-  return `
-Bienvenido a MemoMate! 🤖✨
+Y ya por último, creamos la clase `MemoMateAssistant`, que será la que se encargue de crear e inicializar el agente juntando todas las anteriores piezas y de exponer un método `sendMessage` que permita enviarle un nuevo mensaje a este Agente usando el hilo del usuario en cuestión. En este mismo fichero&#x20;
 
-¡Hola! Soy tu asistente personal, estoy aquí para ayudarte a recordar y 
-gestionar momentos importantes con las personas que te importan en tu vida.
+```
+export class MemoMateAssistant {
+  private agent: Agent;
+  private static instance: MemoMateAssistant;
 
-Para empezar, te recomiendo que visites <a href="${link}">nuestra web</a> 
-para completar tu configuración inicial...
-  `;
+  private constructor() {
+    this.agent = new Agent({
+      id: process.env.OPENAI_ASSISTANT_ID,
+      name: "MemoMate Assistant",
+      description: path.join(__dirname, "description.md"),
+      instructions: path.join(__dirname, "instructions.md"),
+      model: "gpt-4o-mini",
+      tools: [
+        new CreateContactTool(),
+        new UpdateContactTool(),
+        new DeleteContactTool(),
+        new SearchContactTool(),
+        new CreateEventTool(),
+        new GetCurrentDateTool(),
+        new CreateReminderTool(),
+        new GetContactEventsTool(),
+      ],
+    });;
+  }
+
+  static getInstance(): MemoMateAssistant {
+    if (!MemoMateAssistant.instance) {
+      MemoMateAssistant.instance = new MemoMateAssistant();
+    }
+    return MemoMateAssistant.instance;
+  }
+
+  async init() {
+    try {
+      await this.agent.init();
+      console.log("Asistente inicializado correctamente");
+    } catch (error) {
+      console.error("Error al inicializar el asistente:", error);
+      throw error;
+    }
+  }
+
+  async sendMessage(userId: string,threadId: string, message: string): Promise<string> {
+    try {
+      const thread = new Thread<ThreadMetadata>({
+        id: threadId,
+        agent: this.agent,
+        metadata: {
+          userId: userId,
+        },
+      });
+      await thread.init();
+      const response = await thread.send(message);
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        return error.message;
+      }
+      return "Error al enviar mensaje";
+    }
+  }
 }
 ```
 
-### Cron Jobs
-En esta aplicación `bot`, también hemos desarrollado un sistema de crons para manejar 2 factores importantes en la plataforma:
+Una cosa a destacar es la inicialización del agente. Como podemos ver le pasamos un id que tenemos en una variable de entorno. Este será el id del asistente de OpenAI, que ya habremos creado previamente desde la plataforma de OpenAI. El init de esta clase llama al init del agente, ya implementado dentro del paquete @memomate/openai. Este init del agente llevará un control para determinar si el asistente ha cambiado, comparando el estado que tiene registrado en OpenAI con respecto a lo indicado en local. Si detecta que ha cambiado realizará un update en OpenAI, asegurando de esta forma tener siempre el Asistente actualizado con respecto a la configuración que indiquemos desde el proyecto. Por ejemplo, si actualizamos las instrucciones en el fichero instructions.md, este control al inicializar el agente lo detectará y lanzará un update del asistente a la api de OpenAI. Lo mismo si creamos una nueva tool, etc.
 
-- **Recordatorios**: 
-- **Recordatorios**: Para enviar mensajes a los usuarios en momentos específicos. Una de las tablas de nuestra base de datos es `reminder`, que se encarga de registrar recordatorios que se debe enviar a un usuario en un momento dado. El asistente está preparado para permitir al usuario la definición de estos recordatorios
-- **Renovación de créditos**: Para mantener la plataforma activa y disponible para los usuarios.
+### Conectar Bot con Asistente -> Processor
 
-### Búsqueda Semántica
-Integré Pinecone para permitir búsquedas contextuales sobre la información de los contactos, mejorando significativamente la capacidad del bot para recuperar información relevante.
+Con el asistente configurado, ya tenemos todo lo que necesitamos para que, a través de una conversación natural, podamos interactuar con el usuario y llevar control adecuadamente de todo lo que nos indique sobre sus contactos. Por tanto lo único que nos queda es conectar este asistente al bot en Telegram. Aquí es donde entra en juego la clase MemoMateProcessor. Esta clase se encarga de definir métodos para ser ejecutados a diferentes eventos que el bot de Telegram nos emita, como cuando un usuario inicia una nueva conversación, ejecuta un comando o nos envía un mensaje. Para cada una de estas acciones creamos un método en esta clase que lo gestione. Por ejemplo, cuando el usuario dispare el comando /help, haremos que se ejecute el método handleHelp de esta clase:
 
-### Suscripciones
-Implementé un sistema de suscripciones con Stripe, ofreciendo una versión premium con características adicionales.
+```
+  public async handleHelp(ctx: Context) {
+    const message = helpTemplate();
+    ctx.reply(message, {
+      parse_mode: 'HTML'
+    });
+  }
+```
 
-## Lecciones Aprendidas
+Este método simplemente define un string que contiene un html con el mensaje que le queremos dar al usuario y, a través de objeto Context, respondemos al usuario enviando dicho mensaje en formato html.
 
-1. **La importancia de la planificación**: Dedicar tiempo a definir la arquitectura y documentar las decisiones fue fundamental.
+### Crons para recordatorios
 
-2. **Modularidad es clave**: La estructura de monorepo y la separación en paquetes facilitó enormemente el desarrollo y mantenimiento.
+### Pinecone para la búsqueda de contactos
 
-3. **Testing temprano**: Implementar tests desde el principio ayudó a detectar problemas rápidamente, especialmente en la integración con OpenAI.
+### Web en Next
 
-4. **Feedback de usuarios**: Las pruebas con usuarios reales fueron invaluables para mejorar la experiencia del bot.
+### Suscripciones con Stripe
 
-## Conclusión
+### Mejoras, Repositorio y Fin
 
-Desarrollar MemoMate ha sido un viaje fascinante que me ha permitido explorar tecnologías modernas y crear algo útil. El proyecto sigue en evolución, y planeo seguir mejorándolo basándome en el feedback de los usuarios.
 
-Si estás interesado en probar MemoMate, puedes encontrar el bot en Telegram como [@MemoMateBot](https://t.me/MemoMateBot).
-
-¿Preguntas o sugerencias? No dudes en contactarme o visitar el [repositorio del proyecto](https://github.com/tuusuario/memomate). 
