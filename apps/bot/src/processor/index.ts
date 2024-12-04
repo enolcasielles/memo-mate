@@ -31,7 +31,7 @@ export class MemoMateProcessor {
       await prisma.user.update({
         where: { id: user.id },
         data: {
-          hasCompletedSetup: false // TODO: Cambiar a true
+          hasCompletedSetup: true
         }
       })
     }
