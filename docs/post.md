@@ -868,4 +868,24 @@ En resumen, este sistema nos permite:
 3. **Control de Acceso**: El bot verifica el estado de la suscripción antes de procesar cada mensaje
 4. **Degradación Graciosa**: Cuando un usuario cancela su suscripción, vuelve automáticamente al plan gratuito con sus créditos mensuales
 
-### Mejoras, Repositorio y Fin
+### Mejoras Futuras y Conclusión
+
+Durante el desarrollo de MemoMate, han surgido varias ideas para mejoras futuras que podrían enriquecer aún más la experiencia:
+
+1. **Procesamiento en Lotes**: Implementar un sistema de procesamiento por lotes para manejar recordatorios y renovaciones de créditos de forma más eficiente.
+2. **Integración con Más Plataformas**: Expandir más allá de Telegram, añadiendo soporte para WhatsApp o Discord.
+3. **Análisis de Sentimientos**: Incorporar análisis de sentimientos para detectar el estado emocional en las conversaciones y ofrecer insights más profundos.
+4. **Exportación de Datos**: Permitir a los usuarios exportar toda su información en diferentes formatos.
+5. **Mejoras en la Búsqueda**: Refinar el sistema de búsqueda semántica para obtener resultados aún más precisos.
+
+El desarrollo de MemoMate ha sido un viaje fascinante que me ha permitido explorar y combinar diferentes tecnologías modernas. Desde la integración con OpenAI hasta la implementación de búsquedas semánticas con Pinecone, cada parte del proyecto ha presentado sus propios desafíos y aprendizajes.
+
+Si te ha interesado este proyecto y quieres saber más, no dudes en contactarme. Puedes encontrarme en:
+
+- Twitter: [@enolcasielles](https://twitter.com/enolcasielles)
+- LinkedIn: [Enol Casielles](https://www.linkedin.com/in/enolcasielles)
+- Email: enolcasielles@gmail.com
+
+También puedes explorar el [código completo en GitHub](https://github.com/enolcasielles/memo-mate) y, por supuesto, probar el bot en Telegram buscando [@MemoMateBot](https://t.me/MemoMateBot).
+
+¡Espero que este artículo te haya resultado útil e interesante! Si tienes cualquier duda, sugerencia o simplemente quieres compartir tu experiencia, estaré encantado de escucharte. 🚀
